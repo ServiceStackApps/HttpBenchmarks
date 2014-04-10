@@ -16,12 +16,6 @@ namespace ResultsView
 {
     public class AppHost : AppHostBase
     {
-        private static readonly string Env =
-            Environment.GetEnvironmentVariable("ENV")
-            ?? ConfigUtils.GetNullableAppSetting("ENV")
-            //?? "Live"
-            ?? "Test";
-
         public AppHost() : base("HTTP Benchmarks Viewer", typeof(WebServices).Assembly) { }
 
         public override void Configure(Container container)
@@ -33,7 +27,7 @@ namespace ResultsView
             Plugins.Add(new RazorFormat());
 
             //Load environment config file if exists
-            var hostconfigPath = "~/hostconfig.{0}.txt".Fmt(Env).MapHostAbsolutePath();
+            var hostconfigPath = "~/hostconfig.txt".MapHostAbsolutePath();
             if (new FileInfo(hostconfigPath).Exists)
             {
                 var config = File.ReadAllText(hostconfigPath).ParseKeyValueText(delimiter:" ");
@@ -82,7 +76,7 @@ namespace ResultsView
     {
         protected void Application_Start(object sender, EventArgs e)
         {
-            Licensing.RegisterLicenseFromFileIfExists(@"c:\src\appsettings.license.txt");
+            Licensing.RegisterLicenseFromFileIfExists(@"~\appsettings.license.txt".MapHostAbsolutePath());
             new AppHost().Init();
         }
     }
