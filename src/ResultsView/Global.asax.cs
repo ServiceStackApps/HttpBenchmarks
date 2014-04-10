@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
 using Funq;
 using ResultsView.ServiceInterface;
 using ResultsView.ServiceModel.Types;
@@ -14,6 +16,12 @@ namespace ResultsView
 {
     public class AppHost : AppHostBase
     {
+        private static readonly string Env =
+            Environment.GetEnvironmentVariable("ENV")
+            ?? ConfigUtils.GetNullableAppSetting("ENV")
+            //?? "Live"
+            ?? "Test";
+
         public AppHost() : base("HTTP Benchmarks Viewer", typeof(WebServices).Assembly) { }
 
         public override void Configure(Container container)
@@ -22,17 +30,26 @@ namespace ResultsView
                 DebugMode = true
             });
 
-            var appSettings = new AppSettings();
-
             Plugins.Add(new RazorFormat());
 
-            container.Register<IDbConnectionFactory>(c =>
-                new OrmLiteConnectionFactory("db.sqlite", SqliteDialect.Provider));
-            //container.Register<IDbConnectionFactory>(c =>
-            //    new OrmLiteConnectionFactory(
-            //        Environment.GetEnvironmentVariable("PGSQL_TEST"), 
-            //        PostgreSqlDialect.Provider));
+            //Load environment config file if exists
+            var hostconfigPath = "~/hostconfig.{0}.txt".Fmt(Env).MapHostAbsolutePath();
+            if (new FileInfo(hostconfigPath).Exists)
+            {
+                var config = File.ReadAllText(hostconfigPath).ParseKeyValueText(delimiter:" ");
+                if (config["DbProvider"] == "PostgreSql")
+                {
+                    container.Register<IDbConnectionFactory>(c =>
+                        new OrmLiteConnectionFactory(config["ConnectionString"], PostgreSqlDialect.Provider));
+                }
+            }
+            else
+            {
+                container.Register<IDbConnectionFactory>(c =>
+                    new OrmLiteConnectionFactory("~/db.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider));
+            }
 
+            var appSettings = new AppSettings();
             Plugins.Add(new AuthFeature(() => new UserSession(),
                 new IAuthProvider[] {
                     new CredentialsAuthProvider(),

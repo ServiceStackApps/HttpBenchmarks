@@ -162,8 +162,7 @@ namespace ResultsView.ServiceInterface
         {
             var distinctResults = Db.Select(Db.From<TestResult>()
                 .SelectDistinct(x => new { x.Hostname, x.Port, x.RequestPath })
-                .Where(q => q.TestPlanId == testPlan.Id))
-                .Where(x => x.Id > 0).ToList();
+                .Where(q => q.TestPlanId == testPlan.Id));
 
             if (testPlan.ServerLabels == null)
                 testPlan.ServerLabels = new Dictionary<string, string>();
