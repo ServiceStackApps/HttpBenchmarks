@@ -1,0 +1,125 @@
+﻿@inherits ViewPage<ViewTestPlanResponse>
+
+<a href="@(new SearchTestResults { TestPlanId = Model.TestPlan.Id, TestRunId = Model.TestRun.Id }.ToGetUrl())" style="float: right">view details</a>
+
+<h1>@Model.TestPlan.Name <span style="font-size:28px; color: #999;">- @Model.TestRun.SeriesId</span></h1>
+
+<div id="charts"></div>
+
+<script type="text/javascript" src="/Scripts/highcharts.js"></script>
+
+<script type="text/javascript">
+
+    var testplan = @Model.TestPlan.AsRawJson();
+    var results = @Model.Results.AsRawJson();
+    var serverLabels = testplan.ServerLabels || [];
+    var testLabels = testplan.TestLabels || [];
+
+    var pathsMap = {};
+    results.forEach(function(x) {
+        pathsMap[x.RequestPath] = x;
+    });
+
+    var i = 0;
+    Object.keys(pathsMap).forEach(function(path) {
+        var chartId = 'chart-' + i++;
+        $("#charts").append("<div id='" + chartId + "'></div>");
+        renderChart(path, chartId);
+    });
+
+    function renderChart(path, chartId) {
+        var pathResults = results.filter(function(r) {
+            return r.RequestPath == path;
+        });
+
+        var dbHostsMap = {};
+        var hostIndexMap = {};
+        pathResults.forEach(function(r) {
+            if (!dbHostsMap[r.Concurrency])
+                dbHostsMap[r.Concurrency] = {};
+
+            hostIndexMap[r.Host + ":" + r.Port] = hostIndexMap.length - 1;
+            dbHostsMap[r.Concurrency][r.Host + ":" + r.Port] = r.RequestsPerSec;
+        });
+
+        var hosts = Object.keys(hostIndexMap);
+        var score = function(host) {
+           return Object.keys(dbHostsMap).map(function(c) {
+                return dbHostsMap[c] && dbHostsMap[c][host] || 0;
+            }).reduce(function(x,y) { return Math.max(x,y); });            
+        };
+        
+        hosts.sort(function(x, y) {
+            return score(x) < score(y);
+        });
+
+        var series = [];
+        Object.keys(dbHostsMap).forEach(function(c) {
+            var o = {
+                name: c + ' Concurrency',
+                data: []
+            };
+            hosts.forEach(function(h) {
+                o.data.push(dbHostsMap[c][h]);
+            });
+            series.push(o);
+        });
+
+        var hostNames = hosts.map(function(host) { return serverLabels[host] || host; });
+
+        console.log(path, chartId, series, hostNames);
+
+        $('#' + chartId).highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: testLabels[path] || (path + ' requests')
+            },
+            xAxis: {
+                categories: hostNames,
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Requests (per second)',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' millions'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: series
+        });
+    }
+
+</script>
+
+

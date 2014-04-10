@@ -1,0 +1,143 @@
+﻿@if (IsAuthenticated)
+{
+    <div style="width:300px">
+        <h3>Create Test Plan</h3>
+        <form id="form-createplan" action="@(new CreateTestPlan().ToPostUrl())" method="POST">
+            <div>
+                <div class="form-group">
+                    <label for="Name">Name</label>
+                    <input class="form-control input-sm" type="text" id="Name" name="Name" value="" placeholder="" data-keyup="generateSlug">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Slug">Slug</label>
+                    <input class="form-control input-sm" type="text" id="Slug" name="Slug" value="" placeholder="">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;</label><br />
+                    <button class="btn btn-sm btn-default" type="submit">Create Test Plan</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    
+        <div id="testplans" style="display:none;">
+            <h3>My Test Plans</h3>
+            <div class="list-group">
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        refreshTestPlans();
+
+        $("#form-createplan").bindForm();
+
+        $(document).bindHandlers({
+            generateSlug: function() {
+                $("[name=Slug]").val($(this).val().toLowerCase().replace(/[^a-zA-Z\d:]+/g, "-"));
+            },
+            showPlan: function(planId) {
+                location.href = "/testplans/" + planId + "/edit";
+            }
+        });
+
+        function refreshTestPlans() {
+            $.getJSON("/testplans", function (plans) {
+                if (plans.length == 0) return;
+                $("#testplans").show().find(".list-group").html(plans.map(function (p) {
+                    return "<a class='list-group-item' data-click='showPlan:" + p.Id + "'>"
+                        + '<span class="badge">' + $.ss.todfmt(p.CreatedDate) + '</span>'
+                        + p.Name
+                        + "</a>";
+                }));                
+            });
+        }
+    </script>
+}
+else
+{
+          
+    <div id="register" style="width: 680px; padding: 20px">
+        
+        <img src="/Content/img/apache318x260.png" style="float: right; height: 70px; margin: 0 0 0 0;"/>
+        <img src="/Content/img/http-icon.png" style="float: left; height: 60px; margin: 0 10px 0 0;"/>
+
+        <p style="line-height: 60px;">
+            Sign In to upload, analyze and export your <b>Apache Benchmarks</b>.
+        </p>
+        
+        <div class="clearfix"></div>
+
+        <div style="padding: 0 0 80px 0">
+            <h3 style="float: left; width: 50%">Sign In</h3>
+            <h3 style="float: left; width: 50%">Register</h3>
+        </div>
+
+        <div style="float: left; width: 250px; padding: 0 0 0 0;">
+            <a class="btn btn-block btn-social btn-twitter" href="/auth/twitter">
+                <i class="fa fa-twitter"></i>Sign in with Twitter
+            </a>
+            <a class="btn btn-block btn-social btn-facebook" href="/auth/facebook">
+                <i class="fa fa-facebook"></i>Sign in with Facebook
+            </a>
+            <a class="btn btn-block btn-social btn-google-plus" href="/auth/GoogleOAuth">
+                <i class="fa fa-google-plus"></i>Sign in with Google
+            </a>
+            <a class="btn btn-block btn-social btn-linkedin" href="/auth/LinkedIn">
+                <i class="fa fa-linkedin"></i>Sign in with LinkedIn
+            </a>
+
+            <hr />
+            
+            <button class="btn btn-default" data-click="trigger:sign-in">Login with your email</button>
+        </div>
+
+        <h3 style="float: left; height: 300px; border-left: 1px solid #eee; margin: 0 30px">
+            <div style="margin: 100px 0 0 -10px; background: #fff; color: #ccc; padding: 5px 0">or</div>
+        </h3>
+
+        <div style="float: left">
+            <form id="form-register" action="@(new Register().ToPostUrl())" method="POST">
+                <input type="hidden" name="AutoLogin" value="true"/>
+                <div class="form-group">
+                    <input class="form-control input-lg" type="text" id="FirstName" name="FirstName" value="" placeholder="First Name">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <input class="form-control input-lg" type="text" id="LastName" name="LastName" value="" placeholder="Last Name">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <input class="form-control input-lg" type="text" id="Email" name="Email" value="" placeholder="Email">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <input class="form-control input-lg" type="text" id="Password" name="Password" value="" placeholder="Password">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-default" type="submit">Register</button>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+            
+            <script>
+                $("#form-register").bindForm({
+                    success: function(r) {
+                        localStorage["UserName"] = $("#Email").val();
+                        $(document).trigger('signed-in');
+                    }
+                });
+            </script>
+        </div>
+        
+        @*        <div style="position: absolute; bottom: 40px; left: 20px;">
+            <img src="/Content/img/intro-wide.png"/>
+        </div>*@
+      
+        
+    </div>    
+}
+
