@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" defaultValue="Default Web Site/ResultsView_deploy" tags="IisApp" />
+  <parameter name="setAcl" defaultValue="Default Web Site/ResultsView_deploy" tags="IisApp" />
+</parameters>

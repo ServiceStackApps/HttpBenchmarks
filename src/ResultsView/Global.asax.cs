@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using Funq;
 using ResultsView.ServiceInterface;
@@ -20,22 +19,24 @@ namespace ResultsView
 
         public override void Configure(Container container)
         {
+            //Load environment config from text file if exists
+            var liveSettings = "~/appsettings.txt".MapHostAbsolutePath();
+            var isLive = File.Exists(liveSettings);
+
             SetConfig(new HostConfig {
-                DebugMode = true
+                DebugMode = !isLive
             });
 
             Plugins.Add(new RazorFormat());
 
-            //Load environment config file if exists
-            var hostconfigPath = "~/hostconfig.txt".MapHostAbsolutePath();
-            if (new FileInfo(hostconfigPath).Exists)
+            var appSettings = isLive
+                ? (IAppSettings)new TextFileSettings(liveSettings)
+                : new AppSettings();
+            
+            if (appSettings.GetString("DbProvider") == "PostgreSql")
             {
-                var config = File.ReadAllText(hostconfigPath).ParseKeyValueText(delimiter:" ");
-                if (config["DbProvider"] == "PostgreSql")
-                {
-                    container.Register<IDbConnectionFactory>(c =>
-                        new OrmLiteConnectionFactory(config["ConnectionString"], PostgreSqlDialect.Provider));
-                }
+                container.Register<IDbConnectionFactory>(c => new OrmLiteConnectionFactory(
+                    appSettings.GetString("ConnectionString"), PostgreSqlDialect.Provider));
             }
             else
             {
@@ -43,7 +44,6 @@ namespace ResultsView
                     new OrmLiteConnectionFactory("~/db.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider));
             }
 
-            var appSettings = new AppSettings();
             Plugins.Add(new AuthFeature(() => new UserSession(),
                 new IAuthProvider[] {
                     new CredentialsAuthProvider(),
@@ -76,7 +76,7 @@ namespace ResultsView
     {
         protected void Application_Start(object sender, EventArgs e)
         {
-            Licensing.RegisterLicenseFromFileIfExists(@"~\appsettings.license.txt".MapHostAbsolutePath());
+            Licensing.RegisterLicenseFromFileIfExists(@"~/appsettings.license.txt".MapHostAbsolutePath());
             new AppHost().Init();
         }
     }
