@@ -16,6 +16,8 @@ COPY C:\src\ServiceStack.Redis\src\ServiceStack.Redis\bin\Release\ServiceStack.R
 COPY C:\src\ServiceStack\src\ServiceStack.Authentication.OAuth2\bin\Release\ServiceStack.Authentication.OAuth2.* .
 COPY C:\src\ServiceStack\src\ServiceStack.Authentication.OAuth2\bin\Release\DotNetOpenAuth.* .
 
+COPY C:\src\ServiceStack\src\ServiceStack.Authentication.OpenId\bin\Release\ServiceStack.Authentication.OpenId.* .
+
 COPY C:\src\ServiceStack\src\ServiceStack.Api.Swagger\bin\Release\ServiceStack.Api.Swagger.* .
 COPY C:\src\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.Server.* .
 COPY C:\src\ServiceStack\src\ServiceStack.Razor\bin\Release\* .

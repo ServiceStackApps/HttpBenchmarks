@@ -82,13 +82,20 @@ else
             <a class="btn btn-block btn-social btn-facebook" href="/auth/facebook">
                 <i class="fa fa-facebook"></i>Sign in with Facebook
             </a>
+
+            <a class="btn btn-block btn-social btn-google-plus" href="/auth/GoogleOpenId">
+                <i class="fa fa-google-plus"></i>Sign in with Google
+            </a>
+
+@* 
+            <!-- uncomment to enable OAuth2 providers -->
             <a class="btn btn-block btn-social btn-google-plus" href="/auth/GoogleOAuth">
                 <i class="fa fa-google-plus"></i>Sign in with Google
             </a>
             <a class="btn btn-block btn-social btn-linkedin" href="/auth/LinkedIn">
                 <i class="fa fa-linkedin"></i>Sign in with LinkedIn
             </a>
-
+*@
             <hr />
             
             <button class="btn btn-default" data-click="trigger:sign-in">Login with your email</button>
@@ -114,7 +121,7 @@ else
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
-                    <input class="form-control input-lg" type="text" id="Password" name="Password" value="" placeholder="Password">
+                    <input class="form-control input-lg" type="password" id="Password" name="Password" value="" placeholder="Password">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
@@ -132,10 +139,6 @@ else
                 });
             </script>
         </div>
-        
-        @*        <div style="position: absolute; bottom: 40px; left: 20px;">
-            <img src="/Content/img/intro-wide.png"/>
-        </div>*@
       
         
     </div>    

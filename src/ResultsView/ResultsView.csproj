@@ -68,6 +68,9 @@
     <Reference Include="ServiceStack.Authentication.OAuth2">
       <HintPath>..\..\lib\ServiceStack.Authentication.OAuth2.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.Authentication.OpenId">
+      <HintPath>..\..\lib\ServiceStack.Authentication.OpenId.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Client">
       <HintPath>..\..\lib\ServiceStack.Client.dll</HintPath>
     </Reference>

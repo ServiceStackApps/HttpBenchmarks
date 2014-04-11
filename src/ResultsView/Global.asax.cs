@@ -6,6 +6,7 @@ using ResultsView.ServiceModel.Types;
 using ServiceStack;
 using ServiceStack.Auth;
 using ServiceStack.Authentication.OAuth2;
+using ServiceStack.Authentication.OpenId;
 using ServiceStack.Configuration;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
@@ -22,16 +23,18 @@ namespace ResultsView
             //Load environment config from text file if exists
             var liveSettings = "~/appsettings.txt".MapHostAbsolutePath();
             var isLive = File.Exists(liveSettings);
-
-            SetConfig(new HostConfig {
-                DebugMode = !isLive
-            });
-
-            Plugins.Add(new RazorFormat());
-
             var appSettings = isLive
                 ? (IAppSettings)new TextFileSettings(liveSettings)
                 : new AppSettings();
+
+            SetConfig(new HostConfig {
+                DebugMode = true, //!isLive,
+                StripApplicationVirtualPath = isLive,
+                AdminAuthSecret = appSettings.GetString("AuthSecret"),
+            });
+
+            Plugins.Add(new RazorFormat());
+            Plugins.Add(new RequestLogsFeature());
             
             if (appSettings.GetString("DbProvider") == "PostgreSql")
             {
@@ -49,6 +52,7 @@ namespace ResultsView
                     new CredentialsAuthProvider(),
                     new TwitterAuthProvider(appSettings),
                     new FacebookAuthProvider(appSettings),
+                    new GoogleOpenIdOAuthProvider(appSettings), 
                     new GoogleOAuth2Provider(appSettings), 
                     new LinkedInOAuth2Provider(appSettings), 
                 }) {
@@ -70,6 +74,12 @@ namespace ResultsView
                 db.CreateTableIfNotExists<TestResult>();                
             }
         }
+
+        //public override string ResolveAbsoluteUrl(string virtualPath, ServiceStack.Web.IRequest httpReq)
+        //{
+        //    string url = base.ResolveAbsoluteUrl(virtualPath, httpReq);
+        //    return url + (url.Contains("?") ? "&" : "?") + "virtualPath=" + virtualPath;
+        //}
     }
 
     public class Global : System.Web.HttpApplication
