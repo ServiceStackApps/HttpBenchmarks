@@ -3343,7 +3343,7 @@
             CORS allows to access resources from different domain which usually forbidden by origin policy. 
             </summary>
         </member>
-        <member name="M:ServiceStack.CorsFeature.#ctor(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:ServiceStack.CorsFeature.#ctor(System.String,System.String,System.String,System.Boolean,System.String,System.Nullable{System.Int32})">
             <summary>
             Represents a default constructor with Allow Origin equals to "*", Allowed GET, POST, PUT, DELETE, OPTIONS request and allowed "Content-Type" header.
             </summary>

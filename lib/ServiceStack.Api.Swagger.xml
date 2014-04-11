@@ -377,10 +377,3 @@
             <value>An <see cref="T:ICollection{TValue}">ICollection&lt;TValue&gt;</see> object containing the values in the <see cref="T:ServiceStack.Api.Swagger.Support.OrderedDictionary`2">OrderedDictionary&lt;TKey,TValue&gt;</see>.</value>
             <remarks>The returned <see cref="T:ICollection{TValue}">ICollection&lt;TKey&gt;</see> object is not a static copy; instead, the collection refers back to the values in the original <see cref="T:ServiceStack.Api.Swagger.Support.OrderedDictionary`2">OrderedDictionary&lt;TKey,TValue&gt;</see>. Therefore, changes to the <see cref="T:ServiceStack.Api.Swagger.Support.OrderedDictionary`2">OrderedDictionary&lt;TKey,TValue&gt;</see> continue to be reflected in the value collection.</remarks>
         </member>
-        <member name="P:ServiceStack.Api.Swagger.SwaggerFeature.ResourceFilterPattern">
-            <summary>
-            Gets or sets <see cref="T:System.Text.RegularExpressions.Regex"/> pattern to filter available resources. 
-            </summary>
-        </member>
-    </members>
-</doc>
