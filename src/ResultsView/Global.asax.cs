@@ -35,6 +35,7 @@ namespace ResultsView
 
             Plugins.Add(new RazorFormat());
             Plugins.Add(new RequestLogsFeature());
+            Plugins.Add(new CorsFeature(exposeHeaders:"X-Foo"));
             
             if (appSettings.GetString("DbProvider") == "PostgreSql")
             {
