@@ -1,11 +1,6 @@
-﻿@using ResultsView.ServiceModel
-@inherits ViewPage<ResultsView.ServiceModel.EditTestPlanResponse>
+﻿@inherits ViewPage<ResultsView.ServiceModel.EditTestPlanResponse>
 @{
-    if (!IsAuthenticated)
-    {
-        Response.RedirectToUrl("/");
-        return;
-    }
+    RedirectIfNotAuthenticated();
 
     var hrefVewPlan = new ViewTestPlan { Slug = Model.Slug, Id = Model.TestRunId }.ToGetUrl();
     var hrefSearchResults = new SearchTestResults { TestPlanId = Model.Id, TestRunId = Model.TestRunId }.ToGetUrl();
@@ -155,6 +150,13 @@
     <p>
         Upload multiple apache benchmark output files directly or as batches in .zip's
     </p>
+    
+    <div style="position: absolute; z-index: 1; margin: 10px 0 0 220px; user-select: none">
+        <input id="chkCreateTestRuns" type="checkbox"/>
+        <label for="chkCreateTestRuns" style="font-weight: normal">
+            Create new test run for each .zip
+        </label>
+    </div>
 
     <div id="uploadtestresults">
         <span class="help-block"></span>
@@ -347,6 +349,7 @@
         callbacks: {
             onValidateBatch: function() {
                 Model.clearUploads();
+                this.setParams({ CreateNewTestRuns: $("#chkCreateTestRuns")[0].checked });
             },
             onComplete: function (id, fileName, response) {
                 Model.addNewUploads(response.Results);

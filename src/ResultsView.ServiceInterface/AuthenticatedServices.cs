@@ -241,17 +241,20 @@ namespace ResultsView.ServiceInterface
         {
             var testPlanId = request.TestPlanId;
             var testRunId = request.TestRunId.GetValueOrDefault();
+            TestRun testRun = null;
 
             if (base.Request.Files.Length == 0)
                 throw new ArgumentException("No Test Result supplied");
 
-            var results = new List<TestResult>();
+            var processedResults = new List<TestResult>();
+            var newResults = new List<TestResult>();
             foreach (var httpFile in base.Request.Files)
             {
                 if (httpFile.FileName.ToLower().EndsWith(".zip"))
                 {
                     using (var zip = ZipFile.Read(httpFile.InputStream))
                     {
+                        var zipResults = new List<TestResult>();
                         foreach (var zipEntry in zip)
                         {
                             using (var ms = new MemoryStream())
@@ -260,25 +263,41 @@ namespace ResultsView.ServiceInterface
                                 var bytes = ms.ToArray();
 
                                 var result = new MemoryStream(bytes).ToTestResult();
-                                results.Add(result);
+                                zipResults.Add(result);
                             }
+                        }
+
+                        if (request.CreateNewTestRuns)
+                        {
+                            var seriesId = httpFile.FileName.Substring(0, httpFile.FileName.Length - ".zip".Length);
+                            testRun = CreateTestRun(testPlanId, seriesId);
+                            testRun = AddTestResults(GetSignedInUserId(), testPlanId, testRun.Id, zipResults);
+                            processedResults.AddRange(zipResults);
+                        }
+                        else
+                        {
+                            newResults.AddRange(zipResults);
                         }
                     }
                 }
                 else
                 {
                     var result = httpFile.InputStream.ToTestResult();
-                    results.Add(result);
+                    newResults.Add(result);
                 }
             }
 
-            var testRun = AddTestResults(GetSignedInUserId(), testPlanId, testRunId, results);
+            if (newResults.Count > 0)
+            {
+                testRun = AddTestResults(GetSignedInUserId(), testPlanId, testRunId, newResults);
+                processedResults.AddRange(newResults);
+            }
 
             return new UploadTestResultsResponse
             {
                 success = true,
                 TestRun = testRun,
-                Results = results,
+                Results = processedResults,
             };
         }
 
@@ -309,6 +328,7 @@ namespace ResultsView.ServiceInterface
                 testRun = GetLatestOrCreateTestRun(userId, testPlanId);
             }
 
+            testResults.RemoveAll(x => x.Hostname == null || x.Port == 0); //clear bogus records
             testResults.Each(x =>
             {
                 x.UserAuthId = userId;

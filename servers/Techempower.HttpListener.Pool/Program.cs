@@ -11,7 +11,7 @@ namespace Techempower.HttpListener.Pool
         private readonly DbProvider db;
 
         public AppHost(int poolSize, DbProvider db)
-            : base("Techempower Benchmarks", poolSize, typeof (TechmeServices).Assembly)
+            : base("HttpListener Pool Techempower Benchmarks", poolSize, typeof (TechmeServices).Assembly)
         {
             this.db = db;
         }
@@ -38,7 +38,7 @@ namespace Techempower.HttpListener.Pool
                 .Init()
                 .Start("http://*:55002/");
 
-            "\nAppHost started with ThreadPool size of {0} using {1} listening on tcp port 55002"
+            "\nHttpListener Pool started with ThreadPool size of {0} using {1} listening on tcp port 55002"
                 .Print(poolSize, db);
             "Press Enter to Quit".Print();
             Console.ReadLine();

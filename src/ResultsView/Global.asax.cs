@@ -7,6 +7,7 @@ using ServiceStack;
 using ServiceStack.Auth;
 using ServiceStack.Authentication.OAuth2;
 using ServiceStack.Authentication.OpenId;
+using ServiceStack.Caching;
 using ServiceStack.Configuration;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
@@ -35,7 +36,7 @@ namespace ResultsView
 
             Plugins.Add(new RazorFormat());
             Plugins.Add(new RequestLogsFeature());
-            Plugins.Add(new CorsFeature(exposeHeaders:"X-Foo"));
+            Plugins.Add(new CorsFeature());
             
             if (appSettings.GetString("DbProvider") == "PostgreSql")
             {
@@ -48,6 +49,9 @@ namespace ResultsView
                     new OrmLiteConnectionFactory("~/db.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider));
             }
 
+            container.RegisterAs<OrmLiteCacheClient, ICacheClient>();
+            container.Resolve<ICacheClient>().InitSchema();
+
             Plugins.Add(new AuthFeature(() => new UserSession(),
                 new IAuthProvider[] {
                     new CredentialsAuthProvider(),
@@ -57,7 +61,7 @@ namespace ResultsView
                     new GoogleOAuth2Provider(appSettings), 
                     new LinkedInOAuth2Provider(appSettings), 
                 }) {
-                    HtmlRedirect = "/",
+                    HtmlRedirect = "~/",
                     IncludeRegistrationService = true
                 });
             
@@ -75,12 +79,6 @@ namespace ResultsView
                 db.CreateTableIfNotExists<TestResult>();                
             }
         }
-
-        //public override string ResolveAbsoluteUrl(string virtualPath, ServiceStack.Web.IRequest httpReq)
-        //{
-        //    string url = base.ResolveAbsoluteUrl(virtualPath, httpReq);
-        //    return url + (url.Contains("?") ? "&" : "?") + "virtualPath=" + virtualPath;
-        //}
     }
 
     public class Global : System.Web.HttpApplication

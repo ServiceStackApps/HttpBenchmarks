@@ -20,11 +20,11 @@ namespace Techempower.ServiceInterface
 
     public static class ConfigApp
     {
-        public static void AppHost(ServiceStackHost appHost, DbProvider defaultDb = DbProvider.InMemory)
+        public static void AppHost(ServiceStackHost appHost, DbProvider defaultDb = DbProvider.SqlServer)
         {
             appHost.Plugins.Add(new RazorFormat());
 
-            appHost.Container.Register<IDbConnectionFactory>(c => CreateDbFactory(defaultDb));
+            appHost.Container.Register<IDbConnectionFactory>(CreateDbFactory(defaultDb));
             //appHost.Container.Register<IRedisClientsManager>(c => new PooledRedisClientManager());
         }
 

@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{7F510756
 		..\build\ResultsView-deploy.txt = ..\build\ResultsView-deploy.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techempower.SelfHost", "..\servers\Techempower.SelfHost\Techempower.SelfHost.csproj", "{04B8785B-2EDC-436F-9031-11A30B48ABD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{3849EE26-780B-450C-9183-0C6EFD2920D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3849EE26-780B-450C-9183-0C6EFD2920D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3849EE26-780B-450C-9183-0C6EFD2920D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04B8785B-2EDC-436F-9031-11A30B48ABD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B8785B-2EDC-436F-9031-11A30B48ABD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B8785B-2EDC-436F-9031-11A30B48ABD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B8785B-2EDC-436F-9031-11A30B48ABD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{B971976A-3E05-4484-BB7F-09AC8A548D48} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
 		{AB040F8D-2886-4513-8301-8FA78AECD358} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
 		{F9340D2F-DA53-47CA-925C-B67992E4D667} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
+		{04B8785B-2EDC-436F-9031-11A30B48ABD5} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
 		{141F69B6-7FE8-4989-8D23-7B04BD29D106} = {AAA99DE9-1FA7-4D06-AF0C-7285A6E37794}
 	EndGlobalSection
 EndGlobal

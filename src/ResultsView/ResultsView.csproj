@@ -185,7 +185,9 @@
     <Content Include="Scripts\jquery.fineuploader-3.2.min.js" />
     <Content Include="Scripts\loading.gif" />
     <Content Include="Scripts\processing.gif" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-2.1.0.min.map" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>

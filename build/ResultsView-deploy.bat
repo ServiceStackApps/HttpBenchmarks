@@ -7,6 +7,9 @@ SET DEPLOYPKG=%PKGPATH%\ResultsView-deploy.zip
 
 %MSBUILD% ..\src\ResultsView\ResultsView.csproj /T:Package /property:PackageLocation=%DEPLOYPKG%
 
+%AWSDEPLOY% /r /DDeploymentPackage=%DEPLOYPKG% ResultsView-deploy.txt
+
+REM Copy over config
 %MSDEPLOY% -verb:sync -source:manifest=manifest.xml -dest:package=%DEPLOYPKG% -declareParamFile=parameters.xml
 
 %AWSDEPLOY% /r /DDeploymentPackage=%DEPLOYPKG% ResultsView-deploy.txt

@@ -1,5 +1,9 @@
 ﻿@inherits ViewPage<ViewTestPlanResponse>
 
+@{
+    ViewBag.Title = Model.TestRun.SeriesId + " - " + Model.TestPlan.Name;
+}              
+
 <a href="@(new SearchTestResults { TestPlanId = Model.TestPlan.Id, TestRunId = Model.TestRun.Id }.ToGetUrl())" style="float: right">view details</a>
 
 <h1>@Model.TestPlan.Name <span style="font-size:28px; color: #999;">- @Model.TestRun.SeriesId</span></h1>
@@ -21,7 +25,9 @@
     });
 
     var i = 0;
-    Object.keys(pathsMap).forEach(function(path) {
+    var paths = Object.keys(pathsMap);
+    paths.sort();
+    paths.forEach(function(path) {
         var chartId = 'chart-' + i++;
         $("#charts").append("<div id='" + chartId + "'></div>");
         renderChart(path, chartId);
@@ -67,7 +73,7 @@
 
         var hostNames = hosts.map(function(host) { return serverLabels[host] || host; });
 
-        console.log(path, chartId, series, hostNames);
+        //console.log(path, chartId, series, hostNames);
 
         $('#' + chartId).highcharts({
             chart: {
@@ -93,7 +99,7 @@
                 }
             },
             tooltip: {
-                valueSuffix: ' millions'
+                valueSuffix: ' reqs /s'
             },
             plotOptions: {
                 bar: {

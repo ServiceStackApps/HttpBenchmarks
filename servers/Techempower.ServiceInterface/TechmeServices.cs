@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using ServiceStack;
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
@@ -123,29 +124,48 @@ namespace Techempower.ServiceInterface
         }
 
         public void Any(Reset request)
-        {
-            Db.DropAndCreateTable<World>();
-            Redis.FlushAll();
+        {            
+            var fullReset = request.Level == null || request.Level == "full"; 
 
-            var worlds = 10000.Times(i => new World { id = i, randomNumber = rand.Next(0, 10000) + 1 });
-            Db.InsertAll(worlds);
-
-            if (TryResolve<IRedisClientsManager>() != null)
+            if (fullReset || request.Level == "db")
             {
-                Redis.StoreAll(worlds);
+                Db.DropAndCreateTable<World>();
+
+                var worlds = 10000.Times(i => new World { id = i, randomNumber = rand.Next(0, 10000) + 1 });
+                Db.InsertAll(worlds);
+
+                if (TryResolve<IRedisClientsManager>() != null)
+                {
+                    Redis.FlushAll();
+                    Redis.StoreAll(worlds);
+                }
+
+                Db.DropAndCreateTable<Fortune>();
+                new[] {
+                    "A budget is just a method of worrying before you spend money, as well as afterward.",
+                    "A classic is something that everybody wants to have read and nobody wants to read.",
+                    "A conclusion is simply the place where someone got tired of thinking.",
+                    "A diplomat is someone who can tell you to go to hell in such a way that you will look forward to the trip.",
+                    "A psychiatrist is a person who will give you expensive answers that your wife will give you for free.",
+                }.Each(x => Db.Insert(new Fortune { message = x }));
             }
 
-            Db.DropAndCreateTable<Fortune>();
-            new[] {
-                "A budget is just a method of worrying before you spend money, as well as afterward.",
-                "A classic is something that everybody wants to have read and nobody wants to read.",
-                "A conclusion is simply the place where someone got tired of thinking.",
-                "A diplomat is someone who can tell you to go to hell in such a way that you will look forward to the trip.",
-                "A psychiatrist is a person who will give you expensive answers that your wife will give you for free.",
-            }.Each(x => Db.Insert(new Fortune { message = x }));
+            if (fullReset || request.Level == "gc")
+            {
+                GC.Collect();
+            }
+
+            if (fullReset || request.Level == "pause")
+            {
+                Thread.Sleep(2000);
+            }
         }
     }
 
     [Route("/reset")]
-    public class Reset { }
+    [Route("/reset/{Level}")]
+    public class Reset
+    {
+        public string Level { get; set; }
+    }
 }

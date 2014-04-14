@@ -10,6 +10,7 @@ namespace ResultsView.ServiceModel
     {
         public int TestPlanId { get; set; }
         public int? TestRunId { get; set; }
+        public bool CreateNewTestRuns { get; set; }
     }
 
     public class UploadTestResultsResponse

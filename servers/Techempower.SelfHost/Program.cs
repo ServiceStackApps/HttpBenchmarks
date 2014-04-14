@@ -4,14 +4,14 @@ using ServiceStack;
 using ServiceStack.Text;
 using Techempower.ServiceInterface;
 
-namespace Techempower.HttpListener
+namespace Techempower.SelfHost
 {
-    public class AppHost : AppHostHttpListenerBase
+    public class AppHost : AppSelfHostBase
     {
         private readonly DbProvider db;
 
         public AppHost(DbProvider db)
-            : base("HttpListener Techempower Benchmarks", typeof(TechmeServices).Assembly)
+            : base("SelfHost Techempower Benchmarks", typeof(TechmeServices).Assembly)
         {
             this.db = db;
         }
@@ -32,10 +32,10 @@ namespace Techempower.HttpListener
 
             new AppHost(db)
                 .Init()
-                .Start("http://*:55001/");
+                .Start("http://*:55004/");
 
-            "\nHttpListener started with ThreadPool size of {0} using {1} listening on tcp port 55001"
-                .Print(1, db);
+            "\nSelfAppHost started using {0} listening on tcp port 55004"
+                .Print(db);
             "Press Enter to Quit".Print();
             Console.ReadLine();
         }
