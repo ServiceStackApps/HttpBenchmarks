@@ -155,7 +155,10 @@
     <Content Include="Content\img\saved-custom-labels.png" />
     <Content Include="Content\img\search-filter.png" />
     <Content Include="Content\img\splash.png" />
+    <Content Include="Content\img\summary-bare.png" />
+    <Content Include="Content\img\summary-labelled.png" />
     <Content Include="Content\img\updated-testrun.png" />
+    <Content Include="Content\img\upload-as-new-testruns.png" />
     <Content Include="Content\img\upload-files.png" />
     <Content Include="Content\img\upload-results.png" />
     <Content Include="fonts\fontawesome-webfont.svg" />
