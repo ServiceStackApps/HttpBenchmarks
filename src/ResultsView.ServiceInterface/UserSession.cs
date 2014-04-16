@@ -1,10 +1,12 @@
-﻿using ServiceStack;
+﻿using System.Runtime.Serialization;
+using ServiceStack;
 using ServiceStack.Auth;
 
 namespace ResultsView.ServiceInterface
 {
     public class UserSession : AuthUserSession
     {
+        [DataMember]
         public string ProfileUrl64 { get; set; }
 
         public override void OnRegistered(IServiceBase registerService)

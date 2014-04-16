@@ -18,6 +18,8 @@ COPY C:\src\ServiceStack\src\ServiceStack.Authentication.OAuth2\bin\Release\DotN
 
 COPY C:\src\ServiceStack\src\ServiceStack.Authentication.OpenId\bin\Release\ServiceStack.Authentication.OpenId.* .
 
+COPY C:\src\ServiceStack\src\ServiceStack.Logging.Log4Net\bin\Release\ServiceStack.Logging.Log4Net.* .
+
 COPY C:\src\ServiceStack\src\ServiceStack.Api.Swagger\bin\Release\ServiceStack.Api.Swagger.* .
 COPY C:\src\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.Server.* .
 COPY C:\src\ServiceStack\src\ServiceStack.Razor\bin\Release\* .
