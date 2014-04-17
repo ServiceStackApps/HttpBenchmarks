@@ -151,7 +151,9 @@
     <Content Include="Content\default.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\img\AdminUI.png" />
     <Content Include="Content\img\apache318x260.png" />
+    <Content Include="Content\img\benchmark-example-dbs.png" />
     <Content Include="Content\img\charts-bare.png" />
     <Content Include="Content\img\charts-labelled.png" />
     <Content Include="Content\img\create-testplan.png" />
