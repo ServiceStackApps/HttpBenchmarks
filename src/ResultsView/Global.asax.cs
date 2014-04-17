@@ -28,7 +28,7 @@ namespace ResultsView
                 : new AppSettings();
 
             SetConfig(new HostConfig {
-                DebugMode = true, //!isLive,
+                DebugMode = !isLive,
                 StripApplicationVirtualPath = isLive,
                 AdminAuthSecret = appSettings.GetString("AuthSecret"),
             });

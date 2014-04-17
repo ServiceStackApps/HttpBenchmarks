@@ -42,8 +42,12 @@ namespace ResultsView.ServiceInterface
                 }
                 else if (tokens.Provider == "LinkedIn")
                 {
-                    if (authInfo.ContainsKey("picture"))
-                        this.ProfileUrl64 = authInfo["picture"];
+                    //Ignore when deployed as cdn used doesn't support relative (ssl) schemes i.e. '//m.c.lnkd.licdn.com'
+                    if (HostContext.DebugMode)
+                    {
+                        if (authInfo.ContainsKey("picture"))
+                            this.ProfileUrl64 = authInfo["picture"];
+                    }
                 }
             }
             catch { }
