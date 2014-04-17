@@ -124,8 +124,8 @@ namespace Techempower.ServiceInterface
         }
 
         public void Any(Reset request)
-        {            
-            var fullReset = request.Level == null || request.Level == "full"; 
+        {
+            var fullReset = request.Level == null || request.Level == "full";
 
             if (fullReset || request.Level == "db")
             {

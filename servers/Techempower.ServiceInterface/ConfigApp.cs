@@ -34,16 +34,6 @@ namespace Techempower.ServiceInterface
             var dbProvider = appSettings.Get("connection", defaultValue: defaultDb);
             switch (dbProvider)
             {
-                case DbProvider.MySql:
-                    return new OrmLiteConnectionFactory(
-                        appSettings.Get("connection.mysql", "Server=localhost;Database=test;UID=root;Password=test"),
-                        MySqlDialect.Provider);
-
-                case DbProvider.Sqlite:
-                    return new OrmLiteConnectionFactory(
-                        appSettings.Get("connection.sqlite", "db.sqlite"),
-                        SqliteDialect.Provider);
-
                 case DbProvider.InMemory:
                     return new OrmLiteConnectionFactory(":memory:",
                         SqliteDialect.Provider);
@@ -56,8 +46,17 @@ namespace Techempower.ServiceInterface
                 case DbProvider.PostgreSql:
                     return new OrmLiteConnectionFactory(
                         appSettings.Get("connection.postgresql", "Server=localhost;Port=5432;User Id=test;Password=test;Database=test;Pooling=true;MinPoolSize=0;MaxPoolSize=200"),
-                        //appSettings.Get("connection.postgresql", Environment.GetEnvironmentVariable("PGSQL_TEST")),
                         PostgreSqlDialect.Provider);
+
+                case DbProvider.MySql:
+                    return new OrmLiteConnectionFactory(
+                        appSettings.Get("connection.mysql", "Server=localhost;Database=test;UID=root;Password=test"),
+                        MySqlDialect.Provider);
+
+                case DbProvider.Sqlite:
+                    return new OrmLiteConnectionFactory(
+                        appSettings.Get("connection.sqlite", "db.sqlite"),
+                        SqliteDialect.Provider);
 
                 default:
                     throw new NotImplementedException(dbProvider.ToString());

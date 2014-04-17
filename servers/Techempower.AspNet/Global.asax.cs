@@ -1,6 +1,7 @@
 ﻿using System;
 using Funq;
 using ServiceStack;
+using ServiceStack.Configuration;
 using Techempower.ServiceInterface;
 
 namespace Techempower.AspNet
@@ -11,7 +12,7 @@ namespace Techempower.AspNet
 
         public override void Configure(Container container)
         {
-            ConfigApp.AppHost(this);
+            ConfigApp.AppHost(this, new AppSettings().Get("connection.DbProvider", DbProvider.InMemory));
         }
     }
 
