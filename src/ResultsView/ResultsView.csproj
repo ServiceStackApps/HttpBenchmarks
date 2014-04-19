@@ -161,6 +161,8 @@
     <Content Include="Content\img\custom-labels.png" />
     <Content Include="Content\img\edit-custom-labels.png" />
     <Content Include="Content\img\export-search-filter.png" />
+    <Content Include="Content\img\github-10-l.png" />
+    <Content Include="Content\img\github-10-xxl.png" />
     <Content Include="Content\img\http-icon.png" />
     <Content Include="Content\img\login.png" />
     <Content Include="Content\img\logo.png" />

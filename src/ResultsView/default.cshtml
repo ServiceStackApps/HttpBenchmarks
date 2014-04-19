@@ -36,7 +36,7 @@
 
         $(document).bindHandlers({
             generateSlug: function() {
-                $("[name=Slug]").val($(this).val().toLowerCase().replace(/[^a-zA-Z\d:]+/g, "-"));
+                $("[name=Slug]").val($(this).val().toLowerCase().replace(/[^a-zA-Z\d]+/g, "-"));
             },
             showPlan: function(planId) {
                 location.href = "/testplans/" + planId + "/edit";
@@ -134,6 +134,11 @@ else
             </script>
         </div>
       
+        <div class="clearfix"></div>
+        <p style="margin: 80px 0 0 0; line-height: 48px; text-align: center; width: 600px">
+            <img src="/Content/img/github-10-l.png" alt="fork on GitHub" style="margin: 0 5px 0 0;" />
+            view the source: <a href="https://github.com/ServiceStack/HttpBenchmarks">github.com/ServiceStack/HttpBenchmarks</a>
+        </p>
         
     </div>    
 }
