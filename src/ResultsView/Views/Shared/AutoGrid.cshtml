@@ -35,7 +35,7 @@
     }
 </style>
 
-<div id="content"></div>
+<div id="autogrid"></div>
 
 <script>!window.JSON && document.write(unescape('%3Cscript src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"%3E%3C/script%3E'))</script>
 
@@ -109,7 +109,7 @@ function makeRows(h,m) {
 var model = @Model.AsRawJson(),
     isIE = /msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent);
 
-$id("content").innerHTML = val(model);  
+$id("autogrid").innerHTML = val(model);  
 
 doc.onclick = function(e) {
     e = e || window.event, el = e.target || e.srcElement, cls = el.className;
