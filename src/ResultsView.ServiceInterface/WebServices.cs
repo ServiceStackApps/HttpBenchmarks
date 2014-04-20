@@ -61,7 +61,6 @@ namespace ResultsView.ServiceInterface
             return response;
         }
 
-        //[AddHeader(ContentType = MimeTypes.Html)]
         public object Any(ViewTestPlan request)
         {
             var testPlan = Db.Single<TestPlan>(q => q.Slug == request.Slug);
