@@ -163,13 +163,16 @@
     <Content Include="Content\img\export-search-filter.png" />
     <Content Include="Content\img\github-10-l.png" />
     <Content Include="Content\img\github-10-xxl.png" />
+    <Content Include="Content\img\glimpse-panel.png" />
     <Content Include="Content\img\http-icon.png" />
+    <Content Include="Content\img\login-modal.png" />
     <Content Include="Content\img\login.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\no-profile-pic-200.png" />
     <Content Include="Content\img\no-profile-pic-64.png" />
     <Content Include="Content\img\no-profile-pic-96.png" />
     <Content Include="Content\img\no-profile-pic.jpg" />
+    <Content Include="Content\img\oauth-providers.png" />
     <Content Include="Content\img\saved-custom-labels.png" />
     <Content Include="Content\img\search-filter.png" />
     <Content Include="Content\img\splash.png" />
