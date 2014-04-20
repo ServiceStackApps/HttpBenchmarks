@@ -53,6 +53,11 @@
             Attempts to locate the nearest global directive file by 
             </summary>
         </member>
+        <member name="P:ServiceStack.Razor.Compilation.RazorPageHost.RootNamespace">
+            <summary>
+            Gets or sets the root namespace used when the full namespace is inferred from the VirtualPath.
+            </summary>
+        </member>
         <member name="T:ServiceStack.Razor.Managers.RazorPageResolver">
             <summary>
             A common hook into ServiceStack and the hosting infrastructure used to resolve requests.
