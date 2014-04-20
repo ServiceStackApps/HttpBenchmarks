@@ -428,15 +428,6 @@
         saveLabels: function() {}
     });
     
-    $("#formAddTestResult").bindForm({
-        validate: function() {
-            Model.clearUploads();
-        },
-        success: function (r) {
-            Model.addNewUploads(r.Results);
-        }
-    });
-
     //bind forms
     $("#formCreateTestRun").bindForm();
     $("#formDeleteTestPlan").bindForm();
@@ -448,6 +439,15 @@
          }
     });
     
+    $("#formAddTestResult").bindForm({
+        validate: function() {
+            Model.clearUploads();
+        },
+        success: function (r) {
+            Model.addNewUploads(r.Results);
+        }
+    });
+
     var uploader = new qq.FineUploader({
         element: document.getElementById("uploadtestresults"),
         allowedExtensions: ['zip', 'txt'],
