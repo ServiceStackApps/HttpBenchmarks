@@ -1,14 +1,5 @@
 ﻿@inherits ViewPage<SearchTestResultsResponse>
-@{
-    if (IsError)
-    {
-        <div class="alert alert-danger">
-            <h4>@GetErrorStatus().Message</h4>
-            <pre>@GetErrorStatus().StackTrace</pre>
-        </div>
-        return;
-    }
-}
+@if (RenderErrorIfAny()) { return; }
 
 <div style="float: right; text-align: right">
     <div id="formats" style="margin: 0 0 20px 0">
