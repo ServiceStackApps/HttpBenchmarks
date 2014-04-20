@@ -270,7 +270,7 @@
         setTestRuns: function(runs) {
             var isActive = function(r) { return r.Id == this.TestPlan.TestRunId; }.bind(this);
             this.ActiveTestRun = runs.filter(isActive)[0];
-            this.OtherTestRuns = runs.filter(negate(isActive));
+            this.OtherTestRuns = runs.filter(function (r) { return !isActive(r); });
         },
         setLabels: function(r) {
             this.TestPlan.ServerLabels = r.ServerLabels || {};
@@ -278,14 +278,6 @@
         },
         apply: function(){}
     };
-    Model.Views = new Views(Model);
-
-    refreshTestRuns();
-
-    function refreshTestRuns() {
-        $.getJSON("/testplans/@Model.Id/testruns", Model.setTestRuns);
-        $.getJSON("/testplans/@Model.Id/testruns/@Model.TestRunId/edit", Model.setLabels);
-    }
    
     //bind global event handlers
     $(document).bindHandlers({
@@ -357,14 +349,13 @@
         }
     });
     //rendering    
-
-    function negate(fn) { return function(x) { return !fn(x); }; }
-    
     function Views(model) {
         this.model = model;
-        
+
         var render = function() {
+            console.log('render...');
             for (var name in this) {
+                console.log(name);
                 if (typeof this[name] != 'function') continue;
                 this[name](model);
             }
@@ -380,107 +371,116 @@
             })(model[k]);
         }
     }
-    var p = Views.prototype;
-    p.activeTestRun = function() {
-        var r = this.model.ActiveTestRun;
-        if (!r) return;
-        $("#testruns").show().find(".list-group").html(
-            "<a " + (r.TestResultsCount > 0 ? ' href="@hrefVewPlan"' : '')
-                + " class='list-group-item' data-click='showRun:" + r.Id + "'>"
-                + '<span class="badge">' + r.TestResultsCount + '</span>'
-                + r.SeriesId
-                + "</a>"
-        );
+    Views.prototype = {
+        activeTestRun: function() {
+            var r = this.model.ActiveTestRun;
+            if (!r) return;
+            $("#testruns").show().find(".list-group").html(
+                "<a " + (r.TestResultsCount > 0 ? ' href="@hrefVewPlan"' : '')
+                    + " class='list-group-item' data-click='showRun:" + r.Id + "'>"
+                    + '<span class="badge">' + r.TestResultsCount + '</span>'
+                    + r.SeriesId
+                    + "</a>");
 
-        $("#lnkViewResults").html(r.TestResultsCount == 0
-            ? '<span class="disabled">view results</span> <span style="color:#ccc">|</span> <span class="disabled">search results</span>'
-            : '<a href="@hrefVewPlan">view results</a> ' +
-                '<span style="color:#ccc">|</span> ' +
-                '<a href="@hrefSearchResults">search results</a>');
-    };
-    p.otherTestRuns = function() {
-        var runs = this.model.OtherTestRuns;
+            $("#lnkViewResults").html(r.TestResultsCount == 0
+                ? '<span class="disabled">view results</span> <span style="color:#ccc">|</span> <span class="disabled">search results</span>'
+                : '<a href="@hrefVewPlan">view results</a> ' +
+                    '<span style="color:#ccc">|</span> ' +
+                    '<a href="@hrefSearchResults">search results</a>');
+        },
+        otherTestRuns: function() {
+            var runs = this.model.OtherTestRuns;
 
-        var html = runs.map(function(r) {
-            return '<li><a href="/testplans/@Model.Id/testruns/' + r.Id + '/edit">'
-                + r.SeriesId
-                + '</a></li>';
-        });
+            var html = runs.map(function(r) {
+                return '<li><a href="/testplans/@Model.Id/testruns/' + r.Id + '/edit">'
+                    + r.SeriesId
+                    + '</a></li>';
+            });
 
-        if (runs.length > 0)
-            html.push('<li class="divider"></li>');
+            if (runs.length > 0)
+                html.push('<li class="divider"></li>');
 
-        html.push('<li><a href="#" data-click="createTestRun">'
-            + '<span class="glyphicon glyphicon-plus"></span> '
-            + ' Create new test run</a></li>');
+            html.push('<li><a href="#" data-click="createTestRun">'
+                + '<span class="glyphicon glyphicon-plus"></span> '
+                + ' Create new test run</a></li>');
 
-        $("#existing-testruns").html(html.join(''));
-    };
-    p.hasOtherRuns = function() {
-        var hasRuns = this.model.OtherTestRuns.length > 0;
-        $("#btnDeleteRun").toggle(hasRuns);
-    };
-    p.newTestResults = function() {
-        var results = this.model.ResultsUploaded;
-        if (results.length > 0) {
-            $("#testresults").show().find("TABLE tbody").html(
-                results.map(function(r) {
-                    return "<tr>" +
-                        "<td>" + r.Id + "</td>" +
-                        "<td>" + r.Software + "</td>" +
-                        "<td>" + r.Hostname + ":" + r.Port + "</td>" +
-                        "<td>" + r.RequestPath + "</td>" +
-                        "<td>" + r.RequestLength + "</td>" +
-                        "<td>" + r.Concurrency + "</td>" +
-                        "<td>" + r.TimeTaken + "</td>" +
-                        "<td>" + r.TotalRequests + "</td>" +
-                        "<td>" + r.FailedRequests + "</td>" +
-                        "<td>" + r.TotalTransferred + "</td>" +
-                        "<td>" + r.HtmlTransferred + "</td>" +
-                        "<td>" + r.RequestsPerSec + "</td>" +
-                        "<td>" + r.TimePerRequest + "</td>" +
-                        "<td>" + r.TransferRate + "</td>" +
-                        "</tr>";
-                }));
-            var total = $("#testresults tbody tr").length;
-            $("#testresults h3").html(total == 1
-                ? "1 test result was added"
-                : total + " test results were added");
-        } else {
-            $(".qq-upload-list li")
-                .remove();
-            $("#testresults")
-                .hide()
-                .find("TABLE tbody")
-                .html("");
+            $("#existing-testruns").html(html.join(''));
+        },
+        hasOtherRuns: function() {
+            var hasRuns = this.model.OtherTestRuns.length > 0;
+            $("#btnDeleteRun").toggle(hasRuns);
+        },
+        newTestResults: function() {
+            var results = this.model.ResultsUploaded;
+            if (results.length > 0) {
+                $("#testresults").show().find("TABLE tbody").html(
+                    results.map(function(r) {
+                        return "<tr>" +
+                            "<td>" + r.Id + "</td>" +
+                            "<td>" + r.Software + "</td>" +
+                            "<td>" + r.Hostname + ":" + r.Port + "</td>" +
+                            "<td>" + r.RequestPath + "</td>" +
+                            "<td>" + r.RequestLength + "</td>" +
+                            "<td>" + r.Concurrency + "</td>" +
+                            "<td>" + r.TimeTaken + "</td>" +
+                            "<td>" + r.TotalRequests + "</td>" +
+                            "<td>" + r.FailedRequests + "</td>" +
+                            "<td>" + r.TotalTransferred + "</td>" +
+                            "<td>" + r.HtmlTransferred + "</td>" +
+                            "<td>" + r.RequestsPerSec + "</td>" +
+                            "<td>" + r.TimePerRequest + "</td>" +
+                            "<td>" + r.TransferRate + "</td>" +
+                            "</tr>";
+                    }));
+                var total = $("#testresults tbody tr").length;
+                $("#testresults h3").html(total == 1
+                    ? "1 test result was added"
+                    : total + " test results were added");
+            } else {
+                $(".qq-upload-list li")
+                    .remove();
+                $("#testresults")
+                    .hide()
+                    .find("TABLE tbody")
+                    .html("");
+            }
+        },
+        testPlanLabels: function() {
+            var serverLabels = this.model.TestPlan.ServerLabels || {},
+                testLabels = this.model.TestPlan.TestLabels || {},
+                htmlTable = function(map) {
+                    var html = Object.keys(map).map(function(k) {
+                        return "<tr><th>" + k + "</th><td>" + map[k] + "</td></tr>";
+                    }).join('');
+                    return "<table class='table table-bordered' style='margin:0'>" + html + "</table>";
+                },
+                textareaText = function(map) {
+                    return Object.keys(map).map(function(key) {
+                        return key + " " + map[key] + "\n";
+                    }).join('');
+                },
+                editMode = $("#chkEditLabels")[0].checked;
+        
+            $("#labels").toggle(Object.keys(serverLabels).length > 0);
+
+            $("#labels textarea").toggle(editMode);
+            $("#labels .preview-labels").toggle(!editMode);
+            $("#btnSaveLabels").toggleClass("disabled", !editMode);
+
+            $(".server-labels textarea").val(textareaText(serverLabels));
+            $(".server-labels .preview-labels").html(htmlTable(serverLabels));
+
+            $(".test-labels textarea").val(textareaText(testLabels));
+            $(".test-labels .preview-labels").html(htmlTable(testLabels));
         }
     };
-    p.testPlanLabels = function() {
-        var serverLabels = this.model.TestPlan.ServerLabels || {},
-            testLabels = this.model.TestPlan.TestLabels || {},
-            htmlTable = function(map) {
-                var html = Object.keys(map).map(function(k) {
-                    return "<tr><th>" + k + "</th><td>" + map[k] + "</td></tr>";
-                }).join('');
-                return "<table class='table table-bordered' style='margin:0'>" + html + "</table>";
-            },
-            textareaText = function(map) {
-                return Object.keys(map).map(function(key) {
-                    return key + " " + map[key] + "\n";
-                }).join('');
-            },
-            editMode = $("#chkEditLabels")[0].checked;
-        
-        $("#labels").toggle(Object.keys(serverLabels).length > 0);
 
-        $("#labels textarea").toggle(editMode);
-        $("#labels .preview-labels").toggle(!editMode);
-        $("#btnSaveLabels").toggleClass("disabled", !editMode);
+    function refreshTestRuns() {
+        $.getJSON("/testplans/@Model.Id/testruns", Model.setTestRuns);
+        $.getJSON("/testplans/@Model.Id/testruns/@Model.TestRunId/edit", Model.setLabels);
+    }
 
-        $(".server-labels textarea").val(textareaText(serverLabels));
-        $(".server-labels .preview-labels").html(htmlTable(serverLabels));
-
-        $(".test-labels textarea").val(textareaText(testLabels));
-        $(".test-labels .preview-labels").html(htmlTable(testLabels));
-    };
+    //main
+    Model.Views = new Views(Model);
+    refreshTestRuns();
 </script>
