@@ -278,75 +278,7 @@
         },
         apply: function(){}
     };
-   
-    //bind global event handlers
-    $(document).bindHandlers({
-        createTestRun: function() {
-            $("#modalCreateTestRun")
-                .on('shown.bs.modal', function() {
-                    $(this).find("INPUT").first().focus();
-                })
-                .modal('show');
-            
-            $("#modalCreateTestRun INPUT").first().focus(function() {
-                var $this = $(this); //fix for Chrome
-                $this.select().mouseup(function() { $this.unbind("mouseup"); return false; });
-            });
-        },
-        deleteTestPlan: function(planId) {
-            $("#modalDeleteTestPlan").modal('show');
-        },
-        deleteTestRun: function(runId) {
-            $("#modalDeleteTestRun").modal('show');
-        },
-        editLabels: Model.apply,
-        saveLabels: function() {}
-    });
-    
-    $("#formAddTestResult").bindForm({
-        validate: function() {
-            Model.clearUploads();
-        },
-        success: function (r) {
-            Model.addNewUploads(r.Results);
-        }
-    });
 
-    //bind forms
-    $("#formCreateTestRun").bindForm();
-    $("#formDeleteTestPlan").bindForm();
-    $("#formDeleteTestRun").bindForm();
-    $("#formUpdateLabels").bindForm({
-         success: function(r) {
-             $("#chkEditLabels")[0].checked = false;
-             Model.setLabels(r);
-         }
-    });
-    
-    var uploader = new qq.FineUploader({
-        element: document.getElementById("uploadtestresults"),
-        allowedExtensions: ['zip', 'txt'],
-        minSizeLimit: 1,
-        text: {
-            uploadButton: 'upload test results'
-        },
-        request: {
-            endpoint: "@hrefUploadFiles",
-            customHeaders : {
-                accept: 'application/json'
-            }
-        },
-        callbacks: {
-            onValidateBatch: function() {
-                Model.clearUploads();
-                this.setParams({ CreateNewTestRuns: $("#chkCreateTestRuns")[0].checked });
-            },
-            onComplete: function (id, fileName, response) {
-                Model.addNewUploads(response.Results);
-            }
-        }
-    });
-    //rendering    
     function Views(model) {
         this.model = model;
 
@@ -469,7 +401,76 @@
             $(".test-labels textarea").val(textareaText(testLabels));
             $(".test-labels .preview-labels").html(htmlTable(testLabels));
         }
-    };
+    };   
+    Model.Views = new Views(Model);
+
+    //bind global event handlers
+    $(document).bindHandlers({
+        createTestRun: function() {
+            $("#modalCreateTestRun")
+                .on('shown.bs.modal', function() {
+                    $(this).find("INPUT").first().focus();
+                })
+                .modal('show');
+            
+            $("#modalCreateTestRun INPUT").first().focus(function() {
+                var $this = $(this); //fix for Chrome
+                $this.select().mouseup(function() { $this.unbind("mouseup"); return false; });
+            });
+        },
+        deleteTestPlan: function(planId) {
+            $("#modalDeleteTestPlan").modal('show');
+        },
+        deleteTestRun: function(runId) {
+            $("#modalDeleteTestRun").modal('show');
+        },
+        editLabels: Model.apply,
+        saveLabels: function() {}
+    });
+    
+    $("#formAddTestResult").bindForm({
+        validate: function() {
+            Model.clearUploads();
+        },
+        success: function (r) {
+            Model.addNewUploads(r.Results);
+        }
+    });
+
+    //bind forms
+    $("#formCreateTestRun").bindForm();
+    $("#formDeleteTestPlan").bindForm();
+    $("#formDeleteTestRun").bindForm();
+    $("#formUpdateLabels").bindForm({
+         success: function(r) {
+             $("#chkEditLabels")[0].checked = false;
+             Model.setLabels(r);
+         }
+    });
+    
+    var uploader = new qq.FineUploader({
+        element: document.getElementById("uploadtestresults"),
+        allowedExtensions: ['zip', 'txt'],
+        minSizeLimit: 1,
+        text: {
+            uploadButton: 'upload test results'
+        },
+        request: {
+            endpoint: "@hrefUploadFiles",
+            customHeaders : {
+                accept: 'application/json'
+            }
+        },
+        callbacks: {
+            onValidateBatch: function() {
+                Model.clearUploads();
+                this.setParams({ CreateNewTestRuns: $("#chkCreateTestRuns")[0].checked });
+            },
+            onComplete: function (id, fileName, response) {
+                Model.addNewUploads(response.Results);
+            }
+        }
+    });
 
     function refreshTestRuns() {
         $.getJSON("/testplans/@Model.Id/testruns", Model.setTestRuns);
@@ -477,6 +478,5 @@
     }
 
     //main
-    Model.Views = new Views(Model);
     refreshTestRuns();
 </script>
