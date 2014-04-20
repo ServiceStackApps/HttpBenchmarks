@@ -300,9 +300,7 @@
             $("#modalDeleteTestRun").modal('show');
         },
         editLabels: Model.apply,
-        saveLabels: function() {
-            console.log("saveLabels", arguments);            
-        }
+        saveLabels: function() {}
     });
     
     $("#formAddTestResult").bindForm({
@@ -353,9 +351,7 @@
         this.model = model;
 
         var render = function() {
-            console.log('render...');
             for (var name in this) {
-                console.log(name);
                 if (typeof this[name] != 'function') continue;
                 this[name](model);
             }
