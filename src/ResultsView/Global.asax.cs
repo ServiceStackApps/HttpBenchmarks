@@ -20,6 +20,10 @@ namespace ResultsView
 
         public override void Configure(Container container)
         {
+            Plugins.Add(new RazorFormat());
+            Plugins.Add(new RequestLogsFeature());
+            Plugins.Add(new CorsFeature());
+
             //Load environment config from text file if exists
             var liveSettings = "~/appsettings.txt".MapHostAbsolutePath();
             var isLive = File.Exists(liveSettings);
@@ -32,10 +36,6 @@ namespace ResultsView
                 StripApplicationVirtualPath = isLive,
                 AdminAuthSecret = appSettings.GetString("AuthSecret"),
             });
-
-            Plugins.Add(new RazorFormat());
-            Plugins.Add(new RequestLogsFeature());
-            Plugins.Add(new CorsFeature());
             
             if (appSettings.GetString("DbProvider") == "PostgreSql")
             {
