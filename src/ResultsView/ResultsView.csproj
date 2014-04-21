@@ -165,6 +165,8 @@
     <Content Include="Content\img\github-10-xxl.png" />
     <Content Include="Content\img\glimpse-panel.png" />
     <Content Include="Content\img\http-icon.png" />
+    <Content Include="Content\img\iis-redirect-https-panel.png" />
+    <Content Include="Content\img\iis-redirect-https.png" />
     <Content Include="Content\img\login-modal.png" />
     <Content Include="Content\img\login.png" />
     <Content Include="Content\img\logo.png" />
@@ -173,6 +175,9 @@
     <Content Include="Content\img\no-profile-pic-96.png" />
     <Content Include="Content\img\no-profile-pic.jpg" />
     <Content Include="Content\img\oauth-providers.png" />
+    <Content Include="Content\img\publish-aws-deploy.png" />
+    <Content Include="Content\img\publish-aws-menu.png" />
+    <Content Include="Content\img\publish-aws-template.png" />
     <Content Include="Content\img\saved-custom-labels.png" />
     <Content Include="Content\img\search-filter.png" />
     <Content Include="Content\img\splash.png" />
