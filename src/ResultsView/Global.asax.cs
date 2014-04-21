@@ -26,14 +26,13 @@ namespace ResultsView
 
             //Load environment config from text file if exists
             var liveSettings = "~/appsettings.txt".MapHostAbsolutePath();
-            var isLive = File.Exists(liveSettings);
-            var appSettings = isLive
+            var appSettings = File.Exists(liveSettings)
                 ? (IAppSettings)new TextFileSettings(liveSettings)
                 : new AppSettings();
 
             SetConfig(new HostConfig {
-                DebugMode = !isLive,
-                StripApplicationVirtualPath = isLive,
+                DebugMode = appSettings.Get("DebugMode", false),
+                StripApplicationVirtualPath = appSettings.Get("StripApplicationVirtualPath", false),
                 AdminAuthSecret = appSettings.GetString("AuthSecret"),
             });
             
