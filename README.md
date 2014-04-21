@@ -48,25 +48,25 @@ In this guide we'll cover features introduced in HTTP Benchmarks, please refer t
 
 ## Table of Contents
 
-- Setting up Glimpse
-- Personalized Home Page
-- Authentication
+- [Setting up Glimpse](#setting-up-glimpse)
+- [Personalized Home Page](#personalized-home-page)
+- [Authentication](#authentication)
     - UserSessions and UserAuth Repositories
     - Authenticating with OAuth
     - Registration
     - Logging in with Username / Password
-- Creating a Test Plan
-- Edit Test Plan
+- [Creating a Test Plan](#creating-a-test-plan)
+- [Edit Test Plan](#edit-test-plan)
     - Minimal JavaScript dependencies
     - Really Simple MV Pattern
     - Fine Uploader
       - Integration with ServiceStack
-- View Test Plan
+- [View Test Plan](#view-test-plan)
     - Fallback Route
     - Integration with Highcharts
-- Search Test Results
+- [Search Test Results](#search-test-results)
     - The Magic AutoGrid Partial
-- Development vs Production environments
+- [Development vs Production environments](#development-vs-production-environments)
     - Hosting on AWS
     - Deploying to AWS
     - Adhoc deployments to AWS
