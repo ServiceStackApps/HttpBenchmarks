@@ -178,6 +178,7 @@
     <Content Include="Content\img\publish-aws-deploy.png" />
     <Content Include="Content\img\publish-aws-menu.png" />
     <Content Include="Content\img\publish-aws-template.png" />
+    <Content Include="Content\img\run-command.png" />
     <Content Include="Content\img\saved-custom-labels.png" />
     <Content Include="Content\img\search-filter.png" />
     <Content Include="Content\img\splash.png" />
