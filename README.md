@@ -95,9 +95,10 @@ As ServiceStack is hosted at the root path `/` you need to ensure that all Glimp
   <system.webServer>
     ...
     <handlers>
-      <add name="Glimpse" path="glimpse.axd" verb="GET" type="Glimpse.AspNet.HttpHandler, Glimpse.AspNet" 
-           preCondition="integratedMode" />
-      <add path="*" name="ServiceStack.Factory" type="ServiceStack.HttpHandlerFactory, ServiceStack" verb="*" 
+      <add name="Glimpse" path="glimpse.axd" type="Glimpse.AspNet.HttpHandler, Glimpse.AspNet" 
+           verb="GET" preCondition="integratedMode" />
+      <add path="*" verb="*" name="ServiceStack.Factory" 
+           type="ServiceStack.HttpHandlerFactory, ServiceStack" 
            preCondition="integratedMode" resourceType="Unspecified" allowPathInfo="true" />
     </handlers>
 ```
@@ -242,19 +243,19 @@ The schema for the Register Service is contained on the [Register Request DTO](h
 <form id="form-register" action="@(new Register().ToPostUrl())" method="POST">
     <input type="hidden" name="AutoLogin" value="true"/>
     <div class="form-group">
-        <input class="form-control input-lg" type="text" name="FirstName" value="" placeholder="First Name">
+        <input class="form-control input-lg" type="text" name="FirstName" placeholder="First Name">
         <span class="help-block"></span>
     </div>
     <div class="form-group">
-        <input class="form-control input-lg" type="text" name="LastName" value="" placeholder="Last Name">
+        <input class="form-control input-lg" type="text" name="LastName" placeholder="Last Name">
         <span class="help-block"></span>
     </div>
     <div class="form-group">
-        <input class="form-control input-lg" type="text" name="Email" value="" placeholder="Email">
+        <input class="form-control input-lg" type="text" name="Email" placeholder="Email">
         <span class="help-block"></span>
     </div>
     <div class="form-group">
-        <input class="form-control input-lg" type="password" name="Password" value="" placeholder="Password">
+        <input class="form-control input-lg" type="password" name="Password" placeholder="Password">
         <span class="help-block"></span>
     </div>
     <div class="form-group">
@@ -352,7 +353,8 @@ The implementation is fairly straight-forward consisting of a standard HTML form
         <div>
             <div class="form-group">
                 <label for="Name">Name</label>
-                <input class="form-control input-sm" type="text" id="Name" name="Name" data-keyup="generateSlug">
+                <input class="form-control input-sm" type="text" id="Name" name="Name" 
+                       data-keyup="generateSlug">
                 <span class="help-block"></span>
             </div>
             <div class="form-group">
@@ -1026,7 +1028,7 @@ The LinkedIn CDN for instance only supports `http` which is why we disabled prof
 ```csharp
 if (tokens.Provider == "LinkedIn")
 {
-    //Ignore when deployed as cdn used doesn't support relative (ssl) schemes i.e. '//m.c.lnkd.licdn.com'
+    //Ignore when deployed as cdn doesn't support relative ssl schemes (//m.c.lnkd.licdn.com)
     if (HostContext.DebugMode)
     {
         if (authInfo.ContainsKey("picture"))
