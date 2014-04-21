@@ -49,12 +49,12 @@ In this guide we'll cover features introduced in HTTP Benchmarks, please refer t
 ## Table of Contents
 
 - [Setting up Glimpse](#setting-up-glimpse)
-- [Personalized Home Page](#personalized-home-page)
 - [Authentication](#authentication)
     - UserSessions and UserAuth Repositories
     - Authenticating with OAuth
     - Registration
     - Logging in with Username / Password
+- [Personalized Home Page](#personalized-home-page)
 - [Creating a Test Plan](#creating-a-test-plan)
 - [Edit Test Plan](#edit-test-plan)
     - Minimal JavaScript dependencies
@@ -116,30 +116,6 @@ protected void Application_Start(object sender, EventArgs e)
 
 To test that Glimpse is setup correctly go to the Glimpse preferences page at `http://localhost:56000/glimpse.axd` and turn on Glimpse to start
 viewing glimpse logs whilst browsing the website.
-
-## Personalized Home Page
-
-Like many popular social websites, the home page changes based on whether the user has signed-in. 
-This is achieved with a simple `if (IsAuthenticated)` check in [default.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/default.cshtml), e.g: 
-
-```html
-@if (IsAuthenticated)
-{
-    <div>
-        <h3>Create Test Plan</h3>
-        ...
-    </div>
-}
-else 
-{
-    <div id="register">
-        <p>
-            Sign In to upload, analyze and export your <b>Apache Benchmarks</b>.
-        </p>
-        ...
-    </div>
-}
-```
 
 ## Authentication
 
@@ -337,6 +313,30 @@ $(document).on('sign-in', function () {
 ```
 
 [![Modal Login Dialog](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/login-modal.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/Shared/_Layout.cshtml)
+
+## Personalized Home Page
+
+Like many popular social websites, the home page changes based on whether the user has signed-in. 
+This is achieved with a simple `if (IsAuthenticated)` check in [default.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/default.cshtml), e.g: 
+
+```html
+@if (IsAuthenticated)
+{
+    <div>
+        <h3>Create Test Plan</h3>
+        ...
+    </div>
+}
+else 
+{
+    <div id="register">
+        <p>
+            Sign In to upload, analyze and export your <b>Apache Benchmarks</b>.
+        </p>
+        ...
+    </div>
+}
+```
 
 ## Creating a Test Plan
 
