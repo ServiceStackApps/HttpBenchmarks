@@ -844,7 +844,7 @@ which installs the SDK, command-line tools as well as adding convenient integrat
 After creating an account with AWS, deploying an ASP.NET web application can be done through the wizard by clicking on **Publish to AWS** on the 
 context menu of the ASP.NET application you wish to deploy:
 
-![Publish to AWS](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/iis-redirect-https-panel.png)
+![Publish to AWS](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/publish-aws-menu.png)
 
 This will bring up the available deployment templates you can choose to deploy your application with:
 
