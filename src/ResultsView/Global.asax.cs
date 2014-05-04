@@ -23,6 +23,7 @@ namespace ResultsView
             Plugins.Add(new RazorFormat());
             Plugins.Add(new RequestLogsFeature());
             Plugins.Add(new CorsFeature());
+            Plugins.Add(new PostmanFeature());
 
             //Load environment config from text file if exists
             var liveSettings = "~/appsettings.txt".MapHostAbsolutePath();
