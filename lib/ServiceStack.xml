@@ -199,6 +199,12 @@
             </summary>
             <param name="container">Container to register.</param>
         </member>
+        <member name="M:ServiceStack.ServiceStackHost.RedirectDirectory(ServiceStack.Web.IHttpRequest)">
+            <summary>
+            Retain the same behavior as ASP.NET and redirect requests to directores 
+            without a trailing '/'
+            </summary>
+        </member>
         <member name="M:ServiceStack.ServiceStackHost.OnPreExecuteServiceFilter(ServiceStack.IService,System.Object,ServiceStack.Web.IRequest,ServiceStack.Web.IResponse)">
             <summary>
             Executed immediately before a Service is executed. Use return to change the request DTO used, must be of the same type.
@@ -391,6 +397,11 @@
             <summary>
             A convenient base class for your injected service dependencies that reduces the boilerplate
             with managed access to ServiceStack's built-in providers
+            </summary>
+        </member>
+        <member name="P:ServiceStack.PostmanFeature.DefaultVerbsForAny">
+            <summary>
+            Only generate specified Verb entries for "ANY" routes
             </summary>
         </member>
         <member name="M:ServiceStack.RequestContext.TrackDisposable(System.IDisposable)">
