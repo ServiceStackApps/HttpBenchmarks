@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
   <contentPath path="C:\src\HttpBenchmarks\deploy" />
-  <runCommand path="copy /y C:\src\HttpBenchmarks\deploy\*.* C:\inetpub\wwwroot\ResultsView_deploy" 
+  <runCommand path="copy /y C:\src\HttpBenchmarks\deploy\*.* C:\inetpub\wwwroot\BenchmarksAnalyzer_deploy" 
               waitInterval="10000" />
 </sitemanifest>

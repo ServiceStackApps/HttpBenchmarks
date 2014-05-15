@@ -1,28 +1,28 @@
 Http Benchmarks
 ===============
 
-Source code for the HTTP Apache Benchmarks analyzer and exporter hosted at: https://benchmarks.servicestack.net/
+Source code for the HTTP Apache Benchmarks analyzer and exporter hosted at: https://httpbenchmarks.servicestack.net/
 
 ### Example Benchmarks
 
-  - [Performance of different RDBMS within an ASP.NET Web Application](https://benchmarks.servicestack.net/databases-in-asp-net)
-  - [Performance of different ServiceStack Hosts](https://benchmarks.servicestack.net/servicestack-hosts)
+  - [Performance of different RDBMS within an ASP.NET Web Application](https://httpbenchmarks.servicestack.net/databases-in-asp-net)
+  - [Performance of different ServiceStack Hosts](https://httpbenchmarks.servicestack.net/servicestack-hosts)
 
 > from a 2013 MacBook Pro with Windows 8 running [a ServiceStack impl](https://github.com/ServiceStack/HttpBenchmarks/blob/master/servers/Techempower.ServiceInterface/TechmeServices.cs) of the [Techempower benchmarks](http://www.techempower.com/benchmarks/#section=code) at localhost
 
-## [Read the User Guide](https://benchmarks.servicestack.net/about)
+## [Read the User Guide](https://httpbenchmarks.servicestack.net/about)
 
 ### Upload your Apache Benchmarks
 
-[![Upload Benchmarks](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/AdminUI.png)](https://benchmarks.servicestack.net/)
+[![Upload Benchmarks](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/AdminUI.png)](https://httpbenchmarks.servicestack.net/)
 
 ### Visualize the Results 
 
-[![Visualize results](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/benchmark-example-dbs.png)](https://benchmarks.servicestack.net/databases-in-asp-net?id=120)
+[![Visualize results](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/benchmark-example-dbs.png)](https://httpbenchmarks.servicestack.net/databases-in-asp-net?id=120)
 
 ### Analyze and Export 
 
-[![Analyze and Export](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/search-filter.png)](https://benchmarks.servicestack.net/testplans/17/results)
+[![Analyze and Export](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/search-filter.png)](https://httpbenchmarks.servicestack.net/testplans/17/results)
 
 The gridview supports sorting of each column and the results can be further filtered with the filters provided.
 
@@ -30,7 +30,7 @@ The gridview supports sorting of each column and the results can be further filt
 
 Each filtered resultset can be exported by clicking on your preferred format of choice in the links on the top right:
 
-![download links](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/export-search-filter.png)
+![download links](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/export-search-filter.png)
 
 Which are just shortcuts for adding the format's extension to the end of the url, e.g. **.csv**.
 
@@ -80,7 +80,7 @@ In this guide we'll cover features introduced in HTTP Benchmarks, please refer t
 
 ## Setting up Glimpse
 
- ![Glimpse Integration](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/glimpse-panel.png)
+ ![Glimpse Integration](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/glimpse-panel.png)
 
 This project has [Glimpse](http://getglimpse.com/) enabled with additional support for [DotNetOpenAuth](http://dotnetopenauth.net/):
 
@@ -139,7 +139,7 @@ Plugins.Add(new AuthFeature(() => new UserSession(),
 
 The above configuration tells the Authentication feature to:
 
-  - Use our own typed custom [UserSession](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView.ServiceInterface/UserSession.cs) for user sessions
+  - Use our own typed custom [UserSession](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer.ServiceInterface/UserSession.cs) for user sessions
   - Allow authentication via Username / Password as well as Twitter, Facebook, Google and LinkedIn OAuth providers
   - Redirect unauthenticated users to the home page when authentication is required
   - Enable Registration services so new users can be registered at `/register` (then can later Sign-in with Username/Password)
@@ -221,7 +221,7 @@ Once configured, users will be able to sign-in with their preferred provider at 
 
 Which gets rendered as:
 
- ![OAuth Provider Links](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/oauth-providers.png)
+ ![OAuth Provider Links](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/oauth-providers.png)
 
 Once a user clicks one of the above links they are redirected to their chosen OAuth providers website to confirm they want to sign-in with our website.
 Once confirmed, the user is redirected back to the website with new permission tokens that are persisted into the UserAuthRepository and an Authenticated Session
@@ -229,7 +229,7 @@ is setup for the user maintained in the Cache which are identified by Users Cook
 
 ### Registration
 
-[![Creating a Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/login.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/default.cshtml)
+[![Creating a Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/login.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/default.cshtml)
 
 Registering the AuthFeature with `IncludeRegistrationService=true` enables the Registration API's that we can use to register new users with.
 By default the url for the register service is at `/register` but as its overridable the preferred method of getting the url is with the 
@@ -313,12 +313,12 @@ $(document).on('sign-in', function () {
 });
 ```
 
-[![Modal Login Dialog](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/login-modal.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/Shared/_Layout.cshtml)
+[![Modal Login Dialog](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/login-modal.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/Shared/_Layout.cshtml)
 
 ## Personalized Home Page
 
 Like many popular social websites, the home page changes based on whether the user has signed-in. 
-This is achieved with a simple `if (IsAuthenticated)` check in [default.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/default.cshtml), e.g: 
+This is achieved with a simple `if (IsAuthenticated)` check in [default.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/default.cshtml), e.g: 
 
 ```html
 @if (IsAuthenticated)
@@ -341,7 +341,7 @@ else
 
 ## Creating a Test Plan
 
-[![Creating a Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/create-testplan.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/CreateTestPlan.cshtml)
+[![Creating a Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/create-testplan.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/CreateTestPlan.cshtml)
 
 After logging in you'll be prompted to create a test plan which you want to create for each type of benchmark.
 The implementation is fairly straight-forward consisting of a standard HTML form and some javascript behavior:
@@ -440,9 +440,9 @@ In this case the Server tells the client to redirect to the `EditTestPlan` page 
 
 ## Edit Test Plan
 
-[![Edit Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/AdminUI.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/EditTestPlan.cshtml)
+[![Edit Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/AdminUI.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/EditTestPlan.cshtml)
 
-The [EditTestPlan.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/EditTestPlan.cshtml) page 
+The [EditTestPlan.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/EditTestPlan.cshtml) page 
 weighing at just under &lt;500 Lines of HTML/JS is the most feature-rich page in HTTP Benchmarks that supports:
 
  - Operates on 3 levels of relational data (Test Plans, Test Runs and Test Results) 
@@ -562,7 +562,7 @@ reducing state and dividing a heavy JS app into multiple cohesive pages, e.g. se
 
 ### Fine Uploader
 
-[![Edit Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/upload-results.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/EditTestPlan.cshtml)
+[![Edit Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/upload-results.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/EditTestPlan.cshtml)
 
 Another new addition in EditTestPlan.cshtml is the use of the commercial [FineUploader](http://fineuploader.com) library which
 is what enables the multi-file upload support. It basically consists of a HTML fragment of where you want to position the 
@@ -652,16 +652,16 @@ public object Post(UploadTestResults request)
 
 ## View Test Plan
 
-[![View Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/benchmark-example-dbs.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/ViewTestPlan.cshtml)
+[![View Test Plan](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/benchmark-example-dbs.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/ViewTestPlan.cshtml)
 
-The [ViewTestPlan.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/ViewTestPlan.cshtml)
+The [ViewTestPlan.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/ViewTestPlan.cshtml)
 is what graphs all the results of the selected test run into bar charts using the excellent commercial charting library [highcharts](http://www.highcharts.com/).
 
 #### Fallback Route
 
 Something unique to this page is that it's hosted at the ideal public url `//hostname/{TestPlanSlug}` that by default shows the 
 results of the latest test run, which is enabled in ServiceStack using the `[FallbackRoute]` attribute on the 
-[ViewTestPlan](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView.ServiceModel/ViewTestPlan.cs) Request DTO e.g:
+[ViewTestPlan](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer.ServiceModel/ViewTestPlan.cs) Request DTO e.g:
 
 ```csharp
 [FallbackRoute("/{Slug}")]
@@ -677,9 +677,9 @@ slugs as top-level routes without conflicting with other matching application ro
 
 #### Integration with Highcharts
 
-Thanks to Highcharts the [ViewTestPlan.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/ViewTestPlan.cshtml) 
+Thanks to Highcharts the [ViewTestPlan.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/ViewTestPlan.cshtml) 
 takes very little code to implement on both the server which just 
-[returns a Response DTO](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView.ServiceInterface/WebServices.cs#L64) 
+[returns a Response DTO](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer.ServiceInterface/WebServices.cs#L64) 
 populated with the selected selected Test Plan, Test Run and its benchmark results:
 
 ```csharp
@@ -707,7 +707,7 @@ public object Any(ViewTestPlan request)
 ```
 
 The Response DTO is then accessible as the view model of the 
-[ViewTestPlan.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/ViewTestPlan.cshtml) view page 
+[ViewTestPlan.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/ViewTestPlan.cshtml) view page 
 and uses the `T.AsRawJson()` extension method to make it natively accessible in JavaScript, e.g: 
 
 ```javascript
@@ -725,9 +725,9 @@ JavaScript's functional collection utils greatly simplify transforming JS data a
 
 ## Search Test Results
 
-[![Search Test Results](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/export-search-filter.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/SearchTestResults.cshtml)
+[![Search Test Results](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/export-search-filter.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/SearchTestResults.cshtml)
 
-The [SearchTestResults.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/SearchTestResults.cshtml) 
+The [SearchTestResults.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/SearchTestResults.cshtml) 
 page has the simplest implementation of all pages despite supporting deep-linkable filtering in a sortable datagrid and the ability to 
 download the working resultset in a number of different data formats.
 
@@ -767,16 +767,16 @@ public class SearchTestResultsResponse { ... }
 
 ### The Magic AutoGrid Partial
 
-[![Search Test Results](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/search-filter.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/SearchTestResults.cshtml)
+[![Search Test Results](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/search-filter.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/SearchTestResults.cshtml)
 
-The Search Results page also makes nice use of the [AutoGrid.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/Shared/AutoGrid.cshtml)
+The Search Results page also makes nice use of the [AutoGrid.cshtml](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/Shared/AutoGrid.cshtml)
 partial which does the heavy lifting of converting any C# enumerable into a human optimized dynamic sortable datagrid with just 1 Line of Code:
 
 ```csharp
 @Html.Partial("AutoGrid", Model.Results)
 ```
 
-Which is a [modified version](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/ResultsView/Views/Shared/AutoGrid.cshtml) 
+Which is a [modified version](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/Shared/AutoGrid.cshtml) 
 of the stand-alone [HTML5 Report Format](https://github.com/ServiceStack/ServiceStack/wiki/HTML5ReportFormat) that's been modified to 
 be used as a Razor partial view, use Bootstrap's `.table-striped` CSS theme and to avoid conflicts when used with jQuery.
 
@@ -786,7 +786,7 @@ One challenge of maintaining publicly available source code that also gets deplo
 separate production settings with private connection strings and OAuth keys, whilst maintaining different public development 
 environment optimized for requiring minimal infrastructure dependencies. 
 
-In this case [benchmarks.servicestack.net](https://benchmarks.servicestack.net/) is running on AWS with a 
+In this case [httpbenchmarks.servicestack.net](https://httpbenchmarks.servicestack.net/) is running on AWS with a 
 [PostgreSQL RDS](http://aws.amazon.com/rds/postgresql/) database backend, whilst during development we've opted for using an 
 SQLite database which can be run locally without requiring users to have access to a PostgreSQL instance.
 
@@ -794,11 +794,11 @@ SQLite database which can be run locally without requiring users to have access 
 
 Hosting on AWS is different than the default configuration of creating a new Web Application with VS.NET where instead of hosting
 a new web application on a unique port with IIS Express e.g. `http://localhost:56000/` it's instead deployed at a virtual path 
-at port 80, e.g `http://localhost/ResultsView_deploy/`. 
+at port 80, e.g `http://localhost/BenchmarksAnalyzer_deploy/`. 
 
-AWS then uses an IIS rewrite rule to ensure the EC2 instance serves the Virtual Application at its root path e.g. `//benchmarks.servicestack.net/`
+AWS then uses an IIS rewrite rule to ensure the EC2 instance serves the Virtual Application at its root path e.g. `//httpbenchmarks.servicestack.net/`
 Whilst this allows serving the deployed web application from the root path it doesn't solve the issue where the ASP.NET virtual application
-believes its hosted at the `/ResultsView_deploy/` virtual path which is what any app-generated urls (e.g. reverse routing) will include. 
+believes its hosted at the `/BenchmarksAnalyzer_deploy/` virtual path which is what any app-generated urls (e.g. reverse routing) will include. 
 As this is undesired behavior ServiceStack includes a config option to strip the Virtual Application path when generating urls with 
 `Config.StripApplicationVirtualPath=true` which we only want to do when the application is deployed on AWS.
 
@@ -844,11 +844,11 @@ which installs the SDK, command-line tools as well as adding convenient integrat
 After creating an account with AWS, deploying an ASP.NET web application can be done through the wizard by clicking on **Publish to AWS** on the 
 context menu of the ASP.NET application you wish to deploy:
 
-![Publish to AWS](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/publish-aws-menu.png)
+![Publish to AWS](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/publish-aws-menu.png)
 
 This will bring up the available deployment templates you can choose to deploy your application with:
 
-![AWS Deployment Templates](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/publish-aws-template.png)
+![AWS Deployment Templates](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/publish-aws-template.png)
 
 The available options include the fully managed [Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) which takes over control 
 over the life-cycle of your instances, managing the load-balancing and spawning and tearing down instances when capacity changes. If choosing
@@ -860,31 +860,31 @@ you choose what type and instance image you want to deploy to, which admin certi
 
 Before deploying your application, it's recommended to save the AWSDeploy configuration used so you can use it later in automated deployments:
 
-![Save Deployment Configuration](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/publish-aws-deploy.png)
+![Save Deployment Configuration](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/publish-aws-deploy.png)
 
 That's essentially all it takes to deploy your Web Application and have it running on a new EC2 instance. Although in our case there's 
 additional environment-specific settings we want to add to the deployed application.
 
 #### Adhoc deployments to AWS
 
-After the first AWS deployment, redeploying can be done by clicking **Republish to Stack 'ResultsView'** on the Web Application's context menu. 
+After the first AWS deployment, redeploying can be done by clicking **Republish to Stack 'BenchmarksAnalyzer'** on the Web Application's context menu. 
 But given command-line deployments superior configurability, automation and introspection, there's good reason to perform future deployments
-around a replayable `ResultsView-deploy.bat` script, e.g:
+around a replayable `BenchmarksAnalyzer-deploy.bat` script, e.g:
 
 ```
 @echo off
 SET MSBUILD=C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
 SET MSDEPLOY="C:\Program Files (x86)\IIS\Microsoft Web Deploy V3\msdeploy.exe"
 SET AWSDEPLOY="C:\Program Files (x86)\AWS Tools\Deployment Tool\awsdeploy.exe"
-SET DEPLOYPKG=C:\src\HttpBenchmarks\src\deploy\ResultsView-deploy.zip
+SET DEPLOYPKG=C:\src\HttpBenchmarks\src\deploy\BenchmarksAnalyzer-deploy.zip
 
-%MSBUILD% ..\src\ResultsView\ResultsView.csproj /T:Package /property:PackageLocation=%DEPLOYPKG%
+%MSBUILD% ..\src\BenchmarksAnalyzer\BenchmarksAnalyzer.csproj /T:Package /property:PackageLocation=%DEPLOYPKG%
 
-%AWSDEPLOY% /r /DDeploymentPackage=%DEPLOYPKG% ResultsView-deploy.txt
+%AWSDEPLOY% /r /DDeploymentPackage=%DEPLOYPKG% BenchmarksAnalyzer-deploy.txt
 ```
 
 From this script we can tell that deploying to AWS is just a matter of building your web project with **msbuild** saving the output as
-a MSDeploy package that **awsdeploy** uses in addition to metadata in the generated `ResultsView-deploy.txt` configuration to
+a MSDeploy package that **awsdeploy** uses in addition to metadata in the generated `BenchmarksAnalyzer-deploy.txt` configuration to
 deploy the web application to the desired [Cloud Formation](https://aws.amazon.com/cloudformation/) and EC2 instance.
 
 #### Customizing AWS Deployments
@@ -900,7 +900,7 @@ the directory contents we want to copy and the command that does they copying:
 <?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
   <contentPath path="C:\src\HttpBenchmarks\deploy" />
-  <runCommand path="copy /y C:\src\HttpBenchmarks\deploy\*.* C:\inetpub\wwwroot\ResultsView_deploy" 
+  <runCommand path="copy /y C:\src\HttpBenchmarks\deploy\*.* C:\inetpub\wwwroot\BenchmarksAnalyzer_deploy" 
               waitInterval="10000" />
 </sitemanifest>
 ```
@@ -911,8 +911,8 @@ expected by **awsdeploy**:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" defaultValue="Default Web Site/ResultsView_deploy" tags="IisApp" />
-  <parameter name="setAcl" defaultValue="Default Web Site/ResultsView_deploy" tags="IisApp" />
+  <parameter name="IIS Web Application Name" defaultValue="Default Web Site/BenchmarksAnalyzer_deploy" tags="IisApp" />
+  <parameter name="setAcl" defaultValue="Default Web Site/BenchmarksAnalyzer_deploy" tags="IisApp" />
 </parameters>
 ```
 
@@ -922,16 +922,16 @@ With this in-place we can create a customized MSDeploy package with the above co
 REM Copy over config
 %MSDEPLOY% -verb:sync -source:manifest=manifest.xml -dest:package=%DEPLOYPKG% -declareParamFile=parameters.xml
 
-%AWSDEPLOY% /r /DDeploymentPackage=%DEPLOYPKG% ResultsView-deploy.txt
+%AWSDEPLOY% /r /DDeploymentPackage=%DEPLOYPKG% BenchmarksAnalyzer-deploy.txt
 ```
 
 #### Running .bat scripts in VS.NET
 
-We can now deploy the latest version of the application by running `ResultsView-deploy.bat`. 
+We can now deploy the latest version of the application by running `BenchmarksAnalyzer-deploy.bat`. 
 As we'd often want to do this after making a change in VS.NET, a great timesaver is to register a new External Tool 
 in VS.NET that can run any `.bat` script:
 
-![Run Command](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/run-command.png)
+![Run Command](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/run-command.png)
 
 Repeated again in a copy-and-paste friendly format:
 
@@ -995,7 +995,7 @@ You can then use the **Server Certificates** IIS Applet to install your `server.
 With SSL configured we also want to ensure it gets used instead of http which we can do by adding a new IIS Rewrite url rule to **Default Web Site** 
 containing this configuration: 
 
-![Redirect to HTTPS IIS Rewrite Rule](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/ResultsView/Content/img/iis-redirect-https-panel.png)
+![Redirect to HTTPS IIS Rewrite Rule](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/iis-redirect-https-panel.png)
 
 These rules are also available in this copy-and-paste friendly version below:
 

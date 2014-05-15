@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResultsView", "ResultsView\ResultsView.csproj", "{4FEEB081-E5E7-4B44-A348-D927081CBF59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarksAnalyzer", "BenchmarksAnalyzer\BenchmarksAnalyzer.csproj", "{4FEEB081-E5E7-4B44-A348-D927081CBF59}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{7045D23B-72E4-4CA3-845F-5438D6DE8883}"
 EndProject
@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AAA99DE9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perf.Tests", "..\tests\Perf.Tests\Perf.Tests.csproj", "{141F69B6-7FE8-4989-8D23-7B04BD29D106}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResultsView.ServiceModel", "ResultsView.ServiceModel\ResultsView.ServiceModel.csproj", "{F2EBE29F-4050-46E1-86AA-8FCFA6CD3860}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarksAnalyzer.ServiceModel", "BenchmarksAnalyzer.ServiceModel\BenchmarksAnalyzer.ServiceModel.csproj", "{F2EBE29F-4050-46E1-86AA-8FCFA6CD3860}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perf.ServiceInterface", "..\servers\Perf.ServiceInterface\Perf.ServiceInterface.csproj", "{E1EFD00E-8A97-41AF-BE99-78A5F3FE5932}"
 EndProject
@@ -23,12 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techempower.HttpListener.Sm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techempower.ServiceInterface", "..\servers\Techempower.ServiceInterface\Techempower.ServiceInterface.csproj", "{F9340D2F-DA53-47CA-925C-B67992E4D667}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResultsView.ServiceInterface", "ResultsView.ServiceInterface\ResultsView.ServiceInterface.csproj", "{3849EE26-780B-450C-9183-0C6EFD2920D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarksAnalyzer.ServiceInterface", "BenchmarksAnalyzer.ServiceInterface\BenchmarksAnalyzer.ServiceInterface.csproj", "{3849EE26-780B-450C-9183-0C6EFD2920D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{7F510756-69C6-43D7-A4E7-E17A0996C001}"
 	ProjectSection(SolutionItems) = preProject
-		..\build\ResultsView-deploy.bat = ..\build\ResultsView-deploy.bat
-		..\build\ResultsView-deploy.txt = ..\build\ResultsView-deploy.txt
+		..\build\BenchmarksAnalyzer-deploy.bat = ..\build\BenchmarksAnalyzer-deploy.bat
+		..\build\BenchmarksAnalyzer-deploy.txt = ..\build\BenchmarksAnalyzer-deploy.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techempower.SelfHost", "..\servers\Techempower.SelfHost\Techempower.SelfHost.csproj", "{04B8785B-2EDC-436F-9031-11A30B48ABD5}"
