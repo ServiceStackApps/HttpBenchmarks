@@ -19,6 +19,11 @@ namespace Techempower.SelfHost
         public override void Configure(Container container)
         {
             ConfigApp.AppHost(this, db);
+
+            this.PreRequestFilters.Add((req, res) =>
+            {
+                res.UseBufferedStream = true;
+            });
         }
     }
 
