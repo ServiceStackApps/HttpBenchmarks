@@ -101,6 +101,11 @@
             Register user-defined custom routes.
             </summary>
         </member>
+        <member name="P:ServiceStack.IAppHost.Metadata">
+            <summary>
+            Inferred Metadata available from existing services 
+            </summary>
+        </member>
         <member name="P:ServiceStack.IAppHost.ContentTypes">
             <summary>
             Register custom ContentType serializers
@@ -144,6 +149,11 @@
         <member name="P:ServiceStack.IAppHost.UncaughtExceptionHandlers">
             <summary>
             Provide an exception handler for un-caught exceptions
+            </summary>
+        </member>
+        <member name="P:ServiceStack.IAppHost.AfterInitCallbacks">
+            <summary>
+            Provide callbacks to be fired after the AppHost has finished initializing
             </summary>
         </member>
         <member name="P:ServiceStack.IAppHost.RawHttpHandlers">
@@ -285,15 +295,6 @@
             </summary>
             <returns>Reserved Url if the process completes successfully</returns>
         </member>
-        <member name="T:ServiceStack.Auth.OdnoklassnikiAuthProvider">
-            <summary>
-              Create Odnoklassniki App at: http://www.odnoklassniki.ru/devaccess
-              The Callback URL for your app should match the CallbackUrl provided.
-              
-              NB: They claim they use OAuth 2.0, but they in fact don't. 
-              http://apiok.ru/wiki/display/api/Authorization+OAuth+2.0
-            </summary>
-        </member>
         <member name="M:ServiceStack.Auth.IAuthProvider.Logout(ServiceStack.IServiceBase,ServiceStack.Authenticate)">
             <summary>
             Remove the Users Session
@@ -335,6 +336,25 @@
             <summary>
             Saves the Auth Tokens for this request. Called in OnAuthenticated(). 
             Overrideable, the default behaviour is to call IUserAuthRepository.CreateOrMergeAuthSession().
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Auth.AspNetWindowsAuthProvider.AllRoles">
+            <summary>
+            Specify all roles to be used by this application
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Auth.AspNetWindowsAuthProvider.LimitAccessToRoles">
+            <summary>
+            Only allow access to users in specified roles
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Auth.OdnoklassnikiAuthProvider">
+            <summary>
+              Create Odnoklassniki App at: http://www.odnoklassniki.ru/devaccess
+              The Callback URL for your app should match the CallbackUrl provided.
+              
+              NB: They claim they use OAuth 2.0, but they in fact don't. 
+              http://apiok.ru/wiki/display/api/Authorization+OAuth+2.0
             </summary>
         </member>
         <member name="M:ServiceStack.Auth.OAuthProvider.Authenticate(ServiceStack.IServiceBase,ServiceStack.Auth.IAuthSession,ServiceStack.Authenticate)">
@@ -506,6 +526,12 @@
         <member name="P:ServiceStack.PostmanFeature.DefaultVerbsForAny">
             <summary>
             Only generate specified Verb entries for "ANY" routes
+            </summary>
+        </member>
+        <member name="F:ServiceStack.RequestContext.UseThreadStatic">
+            <summary>
+            Tell ServiceStack to use ThreadStatic Items Collection for RequestScoped items.
+            Warning: ThreadStatic Items aren't pinned to the same request in async services which callback on different threads.
             </summary>
         </member>
         <member name="M:ServiceStack.RequestContext.TrackDisposable(System.IDisposable)">
@@ -3063,7 +3089,7 @@
         </member>
         <member name="M:ServiceStack.Auth.RegisterService`1.UpdateUserAuth(ServiceStack.Register)">
             <summary>
-                Logic to update UserAuth from Registration info, not enabled on OnPut because of security.
+            Logic to update UserAuth from Registration info, not enabled on PUT because of security.
             </summary>
         </member>
         <member name="T:ServiceStack.Auth.SaltedHash">

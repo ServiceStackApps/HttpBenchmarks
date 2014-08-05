@@ -288,6 +288,11 @@
             Use to indicate that a property is a Calculated Field 
             </summary>
         </member>
+        <member name="T:ServiceStack.DataAnnotations.ExcludeAttribute">
+            <summary>
+            Mark types that are to be excluded from specified features
+            </summary>
+        </member>
         <member name="T:ServiceStack.DataAnnotations.DecimalLengthAttribute">
             <summary>
             Decimal length attribute.
@@ -331,6 +336,11 @@
         <member name="T:ServiceStack.DataAnnotations.MetaAttribute">
             <summary>
             Decorate any type or property with adhoc info
+            </summary>
+        </member>
+        <member name="T:ServiceStack.IHasResponseStatus">
+            <summary>
+            Contract indication that the Response DTO has a ResponseStatus
             </summary>
         </member>
         <member name="T:ServiceStack.Logging.DebugLogFactory">
@@ -605,11 +615,6 @@
             </summary>
             <param name="message">The message.</param>
         </member>
-        <member name="T:ServiceStack.IHasResponseStatus">
-            <summary>
-            Contract indication that the Response DTO has a ResponseStatus
-            </summary>
-        </member>
         <member name="T:ServiceStack.Logging.LogManager">
             <summary>
             Logging API for this library. You can inject your own implementation otherwise
@@ -666,6 +671,12 @@
             <summary>
             Create a typed message from a raw MQ Response artefact
             </summary>
+        </member>
+        <member name="M:ServiceStack.Messaging.IMessageQueueClient.GetTempQueueName">
+            <summary>
+            Create a temporary Queue for Request / Reply
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:ServiceStack.Messaging.IMessageService">
             <summary>
@@ -1064,6 +1075,11 @@
             Holds the request call context
             </summary>
         </member>
+        <member name="P:ServiceStack.Web.IHttpResult.PaddingLength">
+            <summary>
+            The padding length written with the body, to be added to ContentLength of body
+            </summary>
+        </member>
         <member name="T:ServiceStack.Web.IHttpRequest">
             <summary>
             A thin wrapper around ASP.NET or HttpListener's HttpRequest
@@ -1194,6 +1210,12 @@
             <summary>
             A thin wrapper around each host's Response e.g: ASP.NET, HttpListener, MQ, etc
             </summary>
+        </member>
+        <member name="M:ServiceStack.Web.IResponse.Write(System.String)">
+            <summary>
+            Write once to the Response Stream then close it. 
+            </summary>
+            <param name="text"></param>
         </member>
         <member name="M:ServiceStack.Web.IResponse.Close">
             <summary>
