@@ -1022,19 +1022,3 @@ as well which will prevent users from receiving a warning that your page contain
 urls as they'll automatically get served using the same scheme as the page. This behavior can also be enabled with Absolute urls by removing 
 the scheme from the url, e.g. instead of `http://cdn.com/path` use `//cdn.com/path`. This ensures the resource gets sent using the transport
 of the containing page, but this is only possible if the remote server supports serving the same content through multiple schemes. 
-
-The LinkedIn CDN for instance only supports `http` which is why we disabled profile urls returned by LinkedIn's OAuth provider when deployed in production:
-
-```csharp
-if (tokens.Provider == "LinkedIn")
-{
-    //Ignore when deployed as cdn doesn't support relative ssl schemes (//m.c.lnkd.licdn.com)
-    if (HostContext.DebugMode)
-    {
-        if (authInfo.ContainsKey("picture"))
-            this.ProfileUrl64 = authInfo["picture"];
-    }
-}
-```
-
-All other OAuth providers CDN's support https allowing us to reference their profile urls directly from within our web pages.
