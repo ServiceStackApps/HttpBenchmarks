@@ -4,6 +4,7 @@ using BenchmarksAnalyzer.ServiceInterface;
 using BenchmarksAnalyzer.ServiceModel.Types;
 using Funq;
 using ServiceStack;
+using ServiceStack.Api.Swagger;
 using ServiceStack.Auth;
 using ServiceStack.Authentication.OAuth2;
 using ServiceStack.Caching;
@@ -24,6 +25,7 @@ namespace BenchmarksAnalyzer
             Plugins.Add(new RequestLogsFeature());
             Plugins.Add(new CorsFeature());
             Plugins.Add(new PostmanFeature());
+            Plugins.Add(new SwaggerFeature());
 
             //Load environment config from text file if exists
             var liveSettings = "~/appsettings.txt".MapHostAbsolutePath();
