@@ -2,12 +2,11 @@
 using BenchmarksAnalyzer.ServiceModel.Types;
 using ServiceStack;
 using ServiceStack.Auth;
-using ServiceStack.Configuration;
 using ServiceStack.OrmLite;
 
 namespace BenchmarksAnalyzer.ServiceInterface
 {
-    [RequiredRole(RoleNames.Admin)]
+    [RequiredRole("Admin")]
     public class AdminServices : Service
     {
         public object Any(Reset request)
