@@ -315,6 +315,41 @@ $(document).on('sign-in', function () {
 
 [![Modal Login Dialog](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/login-modal.png)](https://github.com/ServiceStack/HttpBenchmarks/blob/master/src/BenchmarksAnalyzer/Views/Shared/_Layout.cshtml)
 
+The Login Form popup is another regular Bootstrap Form with `UserName` and `Password` fields as well as `Close` and `Sign-In` buttons to submit the form: 
+
+```html
+<form id="form-login" action="/auth/credentials">
+    ...
+    <div class="modal-body">
+        <p class="error-summary alert alert-danger"></p>
+        <div class="form-group">
+            <label>Email:</label>
+            <input class="form-control" type="text" name="UserName" value=""/>
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input class="form-control" type="password" name="Password"/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </div>    
+</form>
+```
+
+Just like registration, the login form uses **ss-utils.js** `$.bindForm()` to ajaxify the form and provide automatic form and validation binding. When authentication is successful the `success` callback is invoked which hides the login modal dialog, saves the last UserName in localStorage and triggers a custom `signed-in` event:
+
+```javascript
+$("#form-login").bindForm({
+    success: function (r) {
+        $('#modalLogin').modal('hide');
+        localStorage["UserName"] = $("[name=UserName]").val();
+        $(document).trigger('signed-in');
+    }
+});
+```
+
 ## Personalized Home Page
 
 Like many popular social websites, the home page changes based on whether the user has signed-in. 
