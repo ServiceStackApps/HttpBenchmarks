@@ -133,7 +133,8 @@ Plugins.Add(new AuthFeature(() => new UserSession(),
         new LinkedInOAuth2Provider(appSettings), 
     }) {
         HtmlRedirect = "~/",
-        IncludeRegistrationService = true
+        IncludeRegistrationService = true,
+        MaxLoginAttempts = appSettings.Get("MaxLoginAttempts", 5),
     });
 ```
 
@@ -143,6 +144,7 @@ The above configuration tells the Authentication feature to:
   - Allow authentication via Username / Password as well as Twitter, Facebook, Google and LinkedIn OAuth providers
   - Redirect unauthenticated users to the home page when authentication is required
   - Enable Registration services so new users can be registered at `/register` (then can later Sign-in with Username/Password)
+  - Set a default **MaxLoginAttempts** of **5** (overridable in AppSettings)
 
 ### UserSessions and UserAuth Repositories
 
@@ -155,15 +157,14 @@ As we're already using an RDBMS the obvious choice is to use an `OrmLiteAuthRepo
 
 ```csharp
 container.Register<IUserAuthRepository>(c =>
-    new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()) {
-        MaxLoginAttempts = appSettings.Get("MaxLoginAttempts", 5)
-    });
+    new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()));
 
 container.Resolve<IUserAuthRepository>().InitSchema();
 ```
 
-Which will make use of the existing OrmLite ConnectionFactory and set a default **MaxLoginAttempts** of **5** (overridable in AppSettings).
-`InitSchema()` is the convention used in ServiceStack to create any necessary RDBMS tables if they don't already exist.
+Which will make use of the existing registered OrmLite ConnectionFactory and run `InitSchema()`, 
+the convention used in ServiceStack to create any necessary RDBMS tables if they don't already exist.
+It's safe to always call `InitSchema()` when available as it's just a NoOP for providers that don't require an implementation.
 
 We also want to store User Sessions in OrmLite so that AppDomain reloads doesn't clear UserSessions in the Memory cache and force users to sign-in again.
 We can register to use an `OrmLiteCacheClient` and create any necessary tables with the registration below:

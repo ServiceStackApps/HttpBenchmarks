@@ -61,14 +61,13 @@ namespace BenchmarksAnalyzer
                     new GoogleOAuth2Provider(appSettings), 
                     new LinkedInOAuth2Provider(appSettings), 
                 }) {
-                    HtmlRedirect = "~/",
-                    IncludeRegistrationService = true
-                });
+                HtmlRedirect = "~/",
+                IncludeRegistrationService = true,
+                MaxLoginAttempts = appSettings.Get("MaxLoginAttempts", 5),
+            });
             
             container.Register<IUserAuthRepository>(c =>
-                new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()) {
-                    MaxLoginAttempts = appSettings.Get("MaxLoginAttempts", 5)
-                });
+                new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()));
 
             container.Resolve<IUserAuthRepository>().InitSchema();
 

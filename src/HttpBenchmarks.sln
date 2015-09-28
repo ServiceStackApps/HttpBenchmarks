@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarksAnalyzer", "BenchmarksAnalyzer\BenchmarksAnalyzer.csproj", "{4FEEB081-E5E7-4B44-A348-D927081CBF59}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{7045D23B-72E4-4CA3-845F-5438D6DE8883}"
@@ -29,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{7F510756
 	ProjectSection(SolutionItems) = preProject
 		..\build\BenchmarksAnalyzer-deploy.bat = ..\build\BenchmarksAnalyzer-deploy.bat
 		..\build\BenchmarksAnalyzer-deploy.txt = ..\build\BenchmarksAnalyzer-deploy.txt
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techempower.SelfHost", "..\servers\Techempower.SelfHost\Techempower.SelfHost.csproj", "{04B8785B-2EDC-436F-9031-11A30B48ABD5}"
@@ -88,6 +91,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{141F69B6-7FE8-4989-8D23-7B04BD29D106} = {AAA99DE9-1FA7-4D06-AF0C-7285A6E37794}
 		{E1EFD00E-8A97-41AF-BE99-78A5F3FE5932} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
 		{43CE22B9-37CB-48DB-89D1-F6A492249525} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
 		{CE4A8244-A56E-4882-9671-4CA41926F6DA} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
@@ -95,6 +99,5 @@ Global
 		{AB040F8D-2886-4513-8301-8FA78AECD358} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
 		{F9340D2F-DA53-47CA-925C-B67992E4D667} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
 		{04B8785B-2EDC-436F-9031-11A30B48ABD5} = {7045D23B-72E4-4CA3-845F-5438D6DE8883}
-		{141F69B6-7FE8-4989-8D23-7B04BD29D106} = {AAA99DE9-1FA7-4D06-AF0C-7285A6E37794}
 	EndGlobalSection
 EndGlobal
