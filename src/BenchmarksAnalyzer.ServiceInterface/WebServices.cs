@@ -32,10 +32,9 @@ namespace BenchmarksAnalyzer.ServiceInterface
         {
             var testRun = request.TestRunId != null
                 ? Db.SingleById<TestRun>(request.TestRunId.Value)
-                : Db.Select<TestRun>(q => q
+                : Db.Single(Db.From<TestRun>()
                     .Where(x => x.TestPlanId == request.TestPlanId)
-                    .OrderByDescending(x => x.Id))
-                    .FirstOrDefault();
+                    .OrderByDescending(x => x.Id));
 
             if (testRun == null)
                 return new List<TestResult>();
@@ -71,10 +70,9 @@ namespace BenchmarksAnalyzer.ServiceInterface
             var testRun = request.Id != null
                 ? Db.Single<TestRun>(x =>
                     x.TestPlanId == testPlan.Id && x.Id == request.Id)
-                : Db.Select<TestRun>(q =>
-                        q.Where(x => x.TestPlanId == testPlan.Id)
-                    .OrderByDescending(x => x.Id))
-                    .FirstOrDefault();
+                : Db.Single(Db.From<TestRun>()
+                     .Where(x => x.TestPlanId == testPlan.Id)
+                    .OrderByDescending(x => x.Id));
 
             var testResults = Db.Select<TestResult>(q => q.TestRunId == testRun.Id);
 

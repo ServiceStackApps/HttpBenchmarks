@@ -10,11 +10,6 @@ namespace BenchmarksAnalyzer.ServiceInterface
         [DataMember]
         public string ProfileUrl64 { get; set; }
 
-        public override void OnRegistered(IServiceBase registerService)
-        {
-            base.OnRegistered(registerService);
-        }
-
         public override void OnAuthenticated(IServiceBase authService, IAuthSession session, 
             IAuthTokens tokens, Dictionary<string, string> authInfo)
         {
@@ -23,5 +18,4 @@ namespace BenchmarksAnalyzer.ServiceInterface
             this.ProfileUrl64 = session.GetProfileUrl();
         }
     }
-
 }

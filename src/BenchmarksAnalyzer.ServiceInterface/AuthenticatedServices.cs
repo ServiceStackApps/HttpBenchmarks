@@ -343,12 +343,10 @@ namespace BenchmarksAnalyzer.ServiceInterface
 
         private TestRun GetLatestOrCreateTestRun(int userId, int testPlanId)
         {
-            var testRun = Db.Select<TestRun>(q =>
-                q.Where(
-                    x => x.UserAuthId == userId
-                        && x.TestPlanId == testPlanId)
-                .OrderByDescending(x => x.Id))
-                .FirstOrDefault();
+            var testRun = Db.Single(Db.From<TestRun>()
+                .Where(x => x.UserAuthId == userId && 
+                            x.TestPlanId == testPlanId)
+                .OrderByDescending(x => x.Id));
 
             return testRun ?? CreateTestRun(testPlanId);
         }
