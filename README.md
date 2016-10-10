@@ -156,10 +156,10 @@ To be able to register and persist details of authenticated users we need to reg
 As we're already using an RDBMS the obvious choice is to use an `OrmLiteAuthRepository` so users are also persisted to our database, e.g:
 
 ```csharp
-container.Register<IUserAuthRepository>(c =>
+container.Register<IAuthRepository>(c =>
     new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()));
 
-container.Resolve<IUserAuthRepository>().InitSchema();
+container.Resolve<IAuthRepository>().InitSchema();
 ```
 
 Which will make use of the existing registered OrmLite ConnectionFactory and run `InitSchema()`, 
