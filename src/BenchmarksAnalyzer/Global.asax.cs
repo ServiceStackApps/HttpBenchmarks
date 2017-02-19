@@ -23,9 +23,13 @@ namespace BenchmarksAnalyzer
         {
             Plugins.Add(new RazorFormat());
             Plugins.Add(new RequestLogsFeature());
-            Plugins.Add(new CorsFeature());
             Plugins.Add(new PostmanFeature());
             Plugins.Add(new SwaggerFeature());
+
+            Plugins.Add(new CorsFeature(
+                allowOriginWhitelist: new[] { "http://localhost", "http://localhost:8080", "http://test.servicestack.net", "http://null.jsbin.com" },
+                allowCredentials: true,
+                allowedHeaders: "Content-Type, Allow, Authorization"));
 
             //Load environment config from text file if exists
             var liveSettings = "~/appsettings.txt".MapHostAbsolutePath();
