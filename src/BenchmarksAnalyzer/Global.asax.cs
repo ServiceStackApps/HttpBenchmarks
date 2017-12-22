@@ -4,7 +4,7 @@ using BenchmarksAnalyzer.ServiceInterface;
 using BenchmarksAnalyzer.ServiceModel.Types;
 using Funq;
 using ServiceStack;
-using ServiceStack.Api.Swagger;
+using ServiceStack.Api.OpenApi;
 using ServiceStack.Auth;
 using ServiceStack.Authentication.OAuth2;
 using ServiceStack.Caching;
@@ -24,7 +24,7 @@ namespace BenchmarksAnalyzer
             Plugins.Add(new RazorFormat());
             Plugins.Add(new RequestLogsFeature());
             Plugins.Add(new PostmanFeature());
-            Plugins.Add(new SwaggerFeature());
+            Plugins.Add(new OpenApiFeature());
 
             Plugins.Add(new CorsFeature(
                 allowOriginWhitelist: new[] { "http://localhost", "http://localhost:8080", "http://test.servicestack.net", "http://null.jsbin.com" },
