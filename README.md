@@ -1,28 +1,26 @@
 Http Benchmarks
 =============== 
 
-Source code for the HTTP Apache Benchmarks analyzer and exporter hosted at: https://httpbenchmarks.servicestack.net/
+Source code for the HTTP Apache Benchmarks analyzer and exporter.
 
 ### Example Benchmarks
 
-  - [Performance of different RDBMS within an ASP.NET Web Application](https://httpbenchmarks.servicestack.net/databases-in-asp-net?id=120)
-  - [Performance of different ServiceStack Hosts](https://httpbenchmarks.servicestack.net/servicestack-hosts)
+  - Performance of different RDBMS within an ASP.NET Web Application
+  - Performance of different ServiceStack Hosts
 
 > from a 2013 MacBook Pro with Windows 8 running [a ServiceStack impl](https://github.com/ServiceStack/HttpBenchmarks/blob/master/servers/Techempower.ServiceInterface/TechmeServices.cs) of the [Techempower benchmarks](http://www.techempower.com/benchmarks/#section=code) at localhost
 
-## [Read the User Guide](https://httpbenchmarks.servicestack.net/about)
-
 ### Upload your Apache Benchmarks
 
-[![Upload Benchmarks](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/AdminUI.png)](https://httpbenchmarks.servicestack.net/)
+![Upload Benchmarks](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/AdminUI.png)
 
 ### Visualize the Results 
 
-[![Visualize results](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/benchmark-example-dbs.png)](https://httpbenchmarks.servicestack.net/databases-in-asp-net?id=120)
+![Visualize results](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/benchmark-example-dbs.png)
 
 ### Analyze and Export 
 
-[![Analyze and Export](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/search-filter.png)](https://httpbenchmarks.servicestack.net/testplans/17/results)
+![Analyze and Export](https://raw.githubusercontent.com/ServiceStack/HttpBenchmarks/master/src/BenchmarksAnalyzer/Content/img/search-filter.png)
 
 The gridview supports sorting of each column and the results can be further filtered with the filters provided.
 
@@ -822,7 +820,7 @@ One challenge of maintaining publicly available source code that also gets deplo
 separate production settings with private connection strings and OAuth keys, whilst maintaining different public development 
 environment optimized for requiring minimal infrastructure dependencies. 
 
-In this case [httpbenchmarks.servicestack.net](https://httpbenchmarks.servicestack.net/) is running on AWS with a 
+In this case httpbenchmarks.servicestack.net was running on AWS with a 
 [PostgreSQL RDS](http://aws.amazon.com/rds/postgresql/) database backend, whilst during development we've opted for using an 
 SQLite database which can be run locally without requiring users to have access to a PostgreSQL instance.
 
