@@ -170,13 +170,13 @@ namespace BenchmarksAnalyzer.ServiceInterface
             if (testPlan.TestLabels == null)
                 testPlan.TestLabels = new Dictionary<string, string>();
 
-            var serverLabels = distinctResults.ConvertAll(x => x.Hostname + ":" + x.Port).ToHashSet();
+            var serverLabels = new HashSet<string>(distinctResults.Select(x => x.Hostname + ":" + x.Port));
             serverLabels.Each(x => {
                 if (!testPlan.ServerLabels.ContainsKey(x))
                     testPlan.ServerLabels[x] = "";
             });
 
-            var testLabels = distinctResults.ConvertAll(x => x.RequestPath).ToHashSet();
+            var testLabels = new HashSet<string>(distinctResults.Select(x => x.RequestPath));
             testLabels.Each(x =>
             {
                 if (!testPlan.TestLabels.ContainsKey(x))
