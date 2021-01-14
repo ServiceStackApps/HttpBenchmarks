@@ -56,8 +56,8 @@
     <Compile Include="ViewTestPlan.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ServiceStack.Interfaces" Version="5.0.3" />
-    <PackageReference Include="ServiceStack.Text" Version="5.0.3" />
+    <PackageReference Include="ServiceStack.Interfaces" Version="5.*" />
+    <PackageReference Include="ServiceStack.Text" Version="5.*" />
   </ItemGroup>
   
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -66,7 +66,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-social.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\default.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\img\AdminUI.png" />
     <Content Include="Content\img\apache318x260.png" />
     <Content Include="Content\img\benchmark-example-dbs.png" />
@@ -104,6 +114,17 @@
     <Content Include="Content\img\upload-as-new-testruns.png" />
     <Content Include="Content\img\upload-files.png" />
     <Content Include="Content\img\upload-results.png" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Global.asax" />
     <Content Include="about.cshtml" />
     <Content Include="Scripts\es5-shim.js" />
