@@ -75,12 +75,10 @@ namespace BenchmarksAnalyzer
 
             container.Resolve<IUserAuthRepository>().InitSchema();
 
-            using (var db = container.Resolve<IDbConnectionFactory>().Open())
-            {
-                db.CreateTableIfNotExists<TestPlan>();
-                db.CreateTableIfNotExists<TestRun>();
-                db.CreateTableIfNotExists<TestResult>();                
-            }
+            using var db = container.Resolve<IDbConnectionFactory>().Open();
+            db.CreateTableIfNotExists<TestPlan>();
+            db.CreateTableIfNotExists<TestRun>();
+            db.CreateTableIfNotExists<TestResult>();
         }
     }
 
@@ -89,8 +87,6 @@ namespace BenchmarksAnalyzer
         protected void Application_Start(object sender, EventArgs e)
         {
             log4net.Config.XmlConfigurator.Configure();
-
-            Licensing.RegisterLicenseFromFileIfExists(@"~/appsettings.license.txt".MapHostAbsolutePath());
             new AppHost().Init();
         }
     }
